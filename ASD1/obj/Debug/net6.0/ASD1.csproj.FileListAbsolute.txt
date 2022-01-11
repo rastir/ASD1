@@ -1,0 +1,15 @@
+C:\github\asd1\ASD1\bin\Debug\net6.0\ASD1.exe
+C:\github\asd1\ASD1\bin\Debug\net6.0\ASD1.deps.json
+C:\github\asd1\ASD1\bin\Debug\net6.0\ASD1.runtimeconfig.json
+C:\github\asd1\ASD1\bin\Debug\net6.0\ASD1.dll
+C:\github\asd1\ASD1\bin\Debug\net6.0\ref\ASD1.dll
+C:\github\asd1\ASD1\bin\Debug\net6.0\ASD1.pdb
+C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.csproj.AssemblyReference.cache
+C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.GeneratedMSBuildEditorConfig.editorconfig
+C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.AssemblyInfoInputs.cache
+C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.AssemblyInfo.cs
+C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.csproj.CoreCompileInputs.cache
+C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.dll
+C:\github\asd1\ASD1\obj\Debug\net6.0\ref\ASD1.dll
+C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.pdb
+C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.genruntimeconfig.cache
