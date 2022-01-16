@@ -1,1 +1,241 @@
-1
+1using System;
+using System.Collections.Generic;
+
+namespace AlgorithmsDataStructures
+{
+
+
+    /// <summary>
+    //// урс 1-й ј—ƒ
+    ///—в€зный (св€занный) список
+    /// </summary>
+    
+    //Node, который определ€ет узел
+    //класс узла, который будет представл€ть одиночный объект в списке
+    public class Node
+    {
+        public int value; // ласс Node €вл€етс€ обобщенным, поэтому может хранить данные любого типа. ƒл€ хранени€ данных предназначено свойство value.
+        public Node next; //ƒл€ ссылки на следующий узел определено свойство Next.
+        public Node(int _value) 
+        { 
+            value = _value; 
+        }
+    }
+
+    // LinkedList, который собственно и задаЄт св€зный список.
+    //"обЄртка", синтаксический сахар дл€ узлов.
+    //ƒалее определим сам класс списка
+    public class LinkedList //односв€зный список
+    {
+        public Node? head; // головной/первый элемент
+        public Node? tail; // последний/хвостовой элемент
+        public int count;        // количество элементов в списке
+
+        public LinkedList() //конструктор класса, инициализируем 
+        {
+            head = null; //поле head - указатель на узел-голову списка 
+            tail = null; //поле tail -- это указатель на завершающий узел.
+        }
+        
+        public void AddInTail(Node _item) //доабвление нового узла в конец списка
+        {
+            if (head == null)
+                head = _item;
+            else
+                tail.next = _item;
+            tail = _item;
+
+            count++;
+        }
+
+        public Node Find(int _value)
+        {
+            Node? node = head;
+            while (node != null)
+            {
+                if (node.value == _value) 
+                    return node;
+                node = node.next;
+            }
+            return null;
+
+        }
+
+        public List<Node> FindAll(int _value) //поиск всех значений по заданному значению
+        {
+            List<Node> nodes = new List<Node>();
+
+            var current = head;
+            while (current != null)
+            {
+                if (current.Equals(_value))
+                    nodes.Add(current);
+                current = current.next;
+            }
+            return nodes;
+        }
+
+        public bool Remove(int _value)
+        {
+            // здесь будет ваш код удалени€ одного узла по заданному значению
+
+            Node current = head;
+            Node previous = null;
+
+            // поиск удал€емого узла
+            while (current != null)
+            {
+                if (current.Equals(_value))
+                {
+                    break;
+                }
+                current = current.next;
+            }
+            if (current != null)
+            {
+                // если узел не последний
+                if (current.next != null)
+                {
+                    previous.next = current.next; //current.next.previous = current.previous;
+                }
+                else
+                {
+                    // если последний, переустанавливаем tail
+                    tail = current;
+                }
+
+                // если узел не первый
+                if (current != head)
+                {
+                    previous.next = current.next;
+                }
+                else
+                {
+                    // если первый, переустанавливаем head
+                    head = current;
+                }
+                count--;
+                return true;
+            }
+            return false;
+        }
+
+        public void RemoveAll(int _value)
+        {
+            // здесь будет ваш код удалени€ всех узлов по заданному значению
+            Node current = head;
+            Node previous = null;
+
+            while (current != null)
+            {
+                if (current.Equals(_value))
+                {
+                    // ≈сли узел в середине или в конце
+                    if (previous != null)
+                    {
+                        // убираем узел current, теперь previous ссылаетс€ не на current, а на current.Next
+                        previous.next = current.next;
+
+                        // ≈сли current.Next не установлен, значит узел последний, измен€ем переменную tail
+                        if (current.next == null)
+                            tail = previous;
+                    }
+                    else
+                    {
+                        // если удал€етс€ первый элемент
+                        // переустанавливаем значение head
+                        head = head.next;
+
+                        // если после удалени€ список пуст, сбрасываем tail
+                        if (head == null)
+                            tail = null;
+                    }
+                    count--;
+                }
+                previous = current;
+                current = current.next;
+            }
+        }
+
+        public void Clear()
+        {
+            // здесь будет ваш код очистки всего списка
+            head = null;
+            tail = head;
+            count = 0;
+
+        }
+
+        public int Count()
+        {
+            // здесь будет ваш код подсчЄта количества элементов в списке
+            Node current = head;
+            int count = 0;
+
+            while (current != null)
+            { 
+                count++;
+            }
+            return count;
+        }
+
+        public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
+        {
+            Node current = head;
+            Node previous = null;
+
+            // здесь будет ваш код вставки узла после заданного
+            if (_nodeToInsert == null)
+                throw new ArgumentNullException("Argument {1} is Null!");
+
+            // если _nodeAfter = null , 
+            // добавьте новый элемент первым в списке 
+
+            if (_nodeAfter is null)
+            {
+                if (head == null)
+                    head = _nodeToInsert;
+                else
+                {
+                    head = _nodeToInsert;
+                    head.next = current;
+                }
+            }
+            else
+            {
+                while (current != null)
+                {
+                    if (current.Equals(_nodeAfter))
+                    {
+                        current.next = _nodeToInsert;
+                        current = _nodeToInsert;
+                        count++;
+                        break;
+                    }
+                }
+            }
+        }
+        public List<int> Equal_Lenght(LinkedList<int> nodes1, LinkedList<int> nodes2)
+        {
+            if (nodes1 == null)
+                throw new ArgumentNullException("Argument {0} is Null!");
+            if (nodes2 == null)
+                throw new ArgumentNullException("Argument {1} is Null!");
+
+            var current1 = nodes1.First;
+            var current2 = nodes2.First;
+            List<int> result = new List<int>();
+
+            while (current1 != null && current2 != null)
+            {
+                int a, b;
+                a = current1.Value; 
+                b = current2.Value;
+                result.Add(a + b);
+                current1 = current1.Next;
+                current2 = current2.Next;
+            }
+            return result;
+        }
+    }
+}
