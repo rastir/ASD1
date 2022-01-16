@@ -3,11 +3,10 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
 {
-
     public class Node
     {
-        public int value; 
-        public Node next; 
+        public int value; //Класс Node является обобщенным, поэтому может хранить данные любого типа. Для хранения данных предназначено свойство value.
+        public Node next; //Для ссылки на следующий узел определено свойство Next.
         public Node(int _value) 
         { 
             value = _value; 
@@ -16,11 +15,11 @@ namespace AlgorithmsDataStructures
 
     public class LinkedList 
     {
-        public Node? head; 
+        public Node? head;
         public Node? tail; 
-        public int count;  
+        public int count;       
 
-        public LinkedList()
+        public LinkedList()  
         {
             head = null; 
             tail = null; 
@@ -66,25 +65,29 @@ namespace AlgorithmsDataStructures
 
         public bool Remove(int _value)
         {
-            // здесь будет ваш код удаления одного узла по заданному значению
             Node current = head;
             Node previous = null;
 
             // поиск удаляемого узла
             while (current != null)
             {
-                if (current.Equals(_value))
+                if (current.value == _value)
                 {
                     break;
                 }
+                previous = current;
                 current = current.next;
             }
             if (current != null)
             {
-                // если узел не последний
-                if (current.next != null)
-                {
-                    previous.next = current.next; //current.next.previous = current.previous;
+                //узел первый
+                if (current == head)
+                    head = current.next;
+                
+                //узел не последний
+                else if (current.next != null)
+                {    
+                    previous.next = current.next; 
                 }
                 else
                 {
@@ -92,16 +95,16 @@ namespace AlgorithmsDataStructures
                     tail = current;
                 }
 
-                // если узел не первый
-                if (current != head)
-                {
-                    previous.next = current.next;
-                }
-                else
-                {
-                    // если первый, переустанавливаем head
-                    head = current;
-                }
+                //// если узел не первый
+                //if (current != head)
+                //{
+                //    previous.next = current.next;
+                //}
+                //else
+                //{
+                //    // если первый, переустанавливаем head
+                //    head = current;
+                //}
                 count--;
                 return true;
             }
@@ -116,7 +119,7 @@ namespace AlgorithmsDataStructures
 
             while (current != null)
             {
-                if (current.Equals(_value))
+                if (current.value == _value)
                 {
                     // Если узел в середине или в конце
                     if (previous != null)
@@ -124,7 +127,8 @@ namespace AlgorithmsDataStructures
                         // убираем узел current, теперь previous ссылается не на current, а на current.Next
                         previous.next = current.next;
 
-                        // Если current.Next не установлен, значит узел последний, изменяем переменную tail
+                        // Если current.Next не установлен, значит узел последний,
+                        // изменяем переменную tail
                         if (current.next == null)
                             tail = previous;
                     }
@@ -143,6 +147,8 @@ namespace AlgorithmsDataStructures
                 previous = current;
                 current = current.next;
             }
+
+            // здесь будет ваш код удаления одного узла по заданному значению
         }
 
         public void Clear()
@@ -163,6 +169,7 @@ namespace AlgorithmsDataStructures
             while (current != null)
             { 
                 count++;
+                current = current.next;
             }
             return count;
         }
@@ -170,11 +177,9 @@ namespace AlgorithmsDataStructures
         public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
         {
             Node current = head;
-            Node previous = null;
 
-            // здесь будет ваш код вставки узла после заданного
             if (_nodeToInsert == null)
-                throw new ArgumentNullException("Argument {1} is Null!");
+                return;
 
             // если _nodeAfter = null , 
             // добавьте новый элемент первым в списке 
@@ -185,43 +190,51 @@ namespace AlgorithmsDataStructures
                     head = _nodeToInsert;
                 else
                 {
-                    head = _nodeToInsert;
-                    head.next = current;
+                    Node node = new Node(_nodeToInsert.value);
+                    node.next = head;
+                    head = node;
                 }
             }
             else
             {
                 while (current != null)
                 {
-                    if (current.Equals(_nodeAfter))
+                    if (current == _nodeAfter)
                     {
-                        current.next = _nodeToInsert;
-                        current = _nodeToInsert;
-                        count++;
+                        Node node = new Node(_nodeToInsert.value);
+                        current.next = node;
+                        node.next = _nodeToInsert;
                         break;
                     }
+                    current = current.next;
                 }
             }
         }
         public List<int> Equal_Lenght(LinkedList<int> nodes1, LinkedList<int> nodes2)
         {
-            if (nodes1 == null)
-                throw new ArgumentNullException("Argument {0} is Null!");
-            if (nodes2 == null)
-                throw new ArgumentNullException("Argument {1} is Null!");
-
+            //Node nodes1 = head;
             var current1 = nodes1.First;
             var current2 = nodes2.First;
             List<int> result = new List<int>();
 
-            while (current1 != null && current2 != null)
+            if (nodes1.Count == 0)
+                return result;
+            //throw new ArgumentNullException("Argument {0} is Null!");
+            if (nodes2.Count == 0)
+                return result;
+            //throw new ArgumentNullException("Argument {1} is Null!");
+
+            if (nodes1.Count() == nodes2.Count())
             {
-                int a, b;
-                a = current1.Value; 
-                b = current2.Value;
-                result.Add(a + b);
-                current1 = current1.Next;
-                current2 = current2.Next;
+                while (current1 != null && current2 != null)
+                {
+                    int a, b;
+                    a = current1.Value;
+                    b = current2.Value;
+                    result.Add(a + b);
+                    current1 = current1.Next;
+                    current2 = current2.Next;
+                }
             }
             return result;
         }
