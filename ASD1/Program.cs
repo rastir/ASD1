@@ -150,62 +150,33 @@ namespace AlgorithmsDataStructures
         {
             // здесь будет ваш код удаления одного узла по заданному значению
 
-            #region
-            //Node current = head;
-            ////Node previous = null;
-
-            //while (current != null)
-            //{
-            //    if (current.Equals(_value))
-            //    {
-            //        // Если узел в середине или в конце
-            //        if (_value != head)
-            //        {
-            //            // убираем узел current, теперь previous ссылается не на current, а на current.Next
-            //            previous.next = current.next;
-
-            //            // Если current.Next не установлен, значит узел последний,
-            //            // изменяем переменную tail
-            //            if (current.next == null)
-            //                tail = previous;
-            //        }
-            //        else
-            //        {
-            //            // если удаляется первый элемент
-            //            // переустанавливаем значение head
-            //            head = head.next;
-
-            //            // если после удаления список пуст, сбрасываем tail
-            //            if (head == null)
-            //                tail = null;
-            //        }
-            //        count--;
-            //        return true;
-            //    }
-            //    previous = current;
-            //    current = current.next;
-            //}
-
-            //return true; // если узел был удалён
-            #endregion
             Node current = head;
             Node previous = null;
+
+            //LinkedList value = new LinkedList();
+            //Node a1 = new(_value);
+            //value.AddInTail(a1);
 
             // поиск удаляемого узла
             while (current != null)
             {
-                if (current.Equals(_value))
+                if (current.value == _value)
                 {
                     break;
                 }
+                previous = current;
                 current = current.next;
             }
             if (current != null)
             {
-                // если узел не последний
-                if (current.next != null)
-                {
-                    previous.next = current.next; //current.next.previous = current.previous;
+                //узел первый
+                if (current == head)
+                    head = current.next;
+                
+                //узел не последний
+                else if (current.next != null)
+                {    
+                    previous.next = current.next; 
                 }
                 else
                 {
@@ -213,16 +184,16 @@ namespace AlgorithmsDataStructures
                     tail = current;
                 }
 
-                // если узел не первый
-                if (current != head)
-                {
-                    previous.next = current.next;
-                }
-                else
-                {
-                    // если первый, переустанавливаем head
-                    head = current;
-                }
+                //// если узел не первый
+                //if (current != head)
+                //{
+                //    previous.next = current.next;
+                //}
+                //else
+                //{
+                //    // если первый, переустанавливаем head
+                //    head = current;
+                //}
                 count--;
                 return true;
             }
@@ -237,7 +208,7 @@ namespace AlgorithmsDataStructures
 
             while (current != null)
             {
-                if (current.Equals(_value))
+                if (current.value == _value)
                 {
                     // Если узел в середине или в конце
                     if (previous != null)
@@ -261,18 +232,12 @@ namespace AlgorithmsDataStructures
                             tail = null;
                     }
                     count--;
-                    return;
                 }
                 previous = current;
                 current = current.next;
             }
 
             // здесь будет ваш код удаления одного узла по заданному значению
-            return; // если узел был удалён
-            //if (_value == null)
-            //{
-            //    throw new ArgumentNullException(nameof(_value));
-            //}
         }
 
         public void Clear()
@@ -293,6 +258,7 @@ namespace AlgorithmsDataStructures
             while (current != null)
             { 
                 count++;
+                current = current.next;
             }
             return count;
         }
@@ -302,9 +268,11 @@ namespace AlgorithmsDataStructures
             Node current = head;
             Node previous = null;
 
-            // здесь будет ваш код вставки узла после заданного
+            //int current_data_insert = _nodeToInsert.value;
+            //int current_next_data_insert = _nodeToInsert.next.value;
+
             if (_nodeToInsert == null)
-                throw new ArgumentNullException("Argument {1} is Null!");
+                return;
 
             // если _nodeAfter = null , 
             // добавьте новый элемент первым в списке 
@@ -315,75 +283,88 @@ namespace AlgorithmsDataStructures
                     head = _nodeToInsert;
                 else
                 {
-                    head = _nodeToInsert;
-                    head.next = current;
+                    Node node = new Node(_nodeToInsert.value);
+                    node.next = head;
+                    head = node;
                 }
             }
             else
             {
                 while (current != null)
                 {
-                    if (current.Equals(_nodeAfter))
+                    if (current == _nodeAfter)
                     {
-                        current.next = _nodeToInsert;
-                        current = _nodeToInsert;
-                        count++;
+                        Node node = new Node(_nodeToInsert.value);
+                        current.next = node;
+                        node.next = _nodeToInsert;
+
+                       // current = current.next;
+                       // current = _nodeToInsert;
+                        //count++;
                         break;
                     }
+                    current = current.next;
                 }
             }
         }
         public List<int> Equal_Lenght(LinkedList<int> nodes1, LinkedList<int> nodes2)
         {
             //Node nodes1 = head;
-
-            if (nodes1 == null)
-                throw new ArgumentNullException("Argument {0} is Null!");
-            if (nodes2 == null)
-                throw new ArgumentNullException("Argument {1} is Null!");
-
             var current1 = nodes1.First;
             var current2 = nodes2.First;
             List<int> result = new List<int>();
 
-            while (current1 != null && current2 != null)
+            if (nodes1.Count == 0)
+                return result;
+            //throw new ArgumentNullException("Argument {0} is Null!");
+            if (nodes2.Count == 0)
+                return result;
+            //throw new ArgumentNullException("Argument {1} is Null!");
+
+            if (nodes1.Count() == nodes2.Count())
             {
-                int a, b;
-                a = current1.Value; 
-                b = current2.Value;
-                result.Add(a + b);
-                current1 = current1.Next;
-                current2 = current2.Next;
+                while (current1 != null && current2 != null)
+                {
+                    int a, b;
+                    a = current1.Value;
+                    b = current2.Value;
+                    result.Add(a + b);
+                    current1 = current1.Next;
+                    current2 = current2.Next;
+                }
             }
             return result;
         }
         static void Main()
         {
             //1-я часть
-            Node n1 = new(12);
-            Node n2 = new(55);
-            n1.next = n2;
+            //Node n1 = new(12);
+            //Node n2 = new(55);
+            //n1.next = n2;
 
-            LinkedList s_list = new LinkedList();
-            s_list.AddInTail(n1);
-            s_list.AddInTail(n2);
-            s_list.AddInTail(new Node(128));
+            //LinkedList s_list = new LinkedList();
+            //s_list.AddInTail(n1);
+            //s_list.AddInTail(n2);
+            //s_list.AddInTail(new Node(128));
 
-            Node my_node = s_list.Find(55);
-            Console.WriteLine(my_node.value);
-            Console.ReadKey();
+            //Node my_node = s_list.Find(55);
+            //Console.WriteLine(my_node.value);
+            //Console.ReadKey();
 
-            var list1 = new List<int> {12, 55, 56 };
-            LinkedList<int> nodes1 = new LinkedList<int>(list1);
-            var list2 = new List<int> { 11, 0, 2 };
-            LinkedList<int> nodes2 = new LinkedList<int>(list1);
-            List<int> result = new List<int>();
+            //var list1 = new List<int> {12, 55, 56 };
+            //LinkedList<int> nodes1 = new LinkedList<int>(list1);
+            //var list2 = new List<int> { 11, 0, 2 };
+            //LinkedList<int> nodes2 = new LinkedList<int>(list1);
+            //List<int> result = new List<int>();
 
             //foreach (int item in result)
             //{
             //    Console.Write(" "+ InsertAfter(list1., nodes2));
             //}            
             //Console.ReadKey();
+
+
+
         }
     }
 }
