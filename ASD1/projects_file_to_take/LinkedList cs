@@ -4,40 +4,29 @@ using System.Collections.Generic;
 namespace AlgorithmsDataStructures
 {
 
-
-    /// <summary>
-    ////Курс 1-й АСД
-    ///Связный (связанный) список
-    /// </summary>
-    
-    //Node, который определяет узел
-    //класс узла, который будет представлять одиночный объект в списке
     public class Node
     {
-        public int value; //Класс Node является обобщенным, поэтому может хранить данные любого типа. Для хранения данных предназначено свойство value.
-        public Node next; //Для ссылки на следующий узел определено свойство Next.
+        public int value; 
+        public Node next; 
         public Node(int _value) 
         { 
             value = _value; 
         }
     }
 
-    // LinkedList, который собственно и задаёт связный список.
-    //"обёртка", синтаксический сахар для узлов.
-    //Далее определим сам класс списка
-    public class LinkedList //односвязный список
+    public class LinkedList 
     {
-        public Node? head; // головной/первый элемент
-        public Node? tail; // последний/хвостовой элемент
-        public int count;        // количество элементов в списке
+        public Node? head; 
+        public Node? tail; 
+        public int count;  
 
-        public LinkedList() //конструктор класса, инициализируем 
+        public LinkedList()
         {
-            head = null; //поле head - указатель на узел-голову списка 
-            tail = null; //поле tail -- это указатель на завершающий узел.
+            head = null; 
+            tail = null; 
         }
         
-        public void AddInTail(Node _item) //доабвление нового узла в конец списка
+        public void AddInTail(Node _item) 
         {
             if (head == null)
                 head = _item;
@@ -61,7 +50,7 @@ namespace AlgorithmsDataStructures
 
         }
 
-        public List<Node> FindAll(int _value) //поиск всех значений по заданному значению
+        public List<Node> FindAll(int _value) 
         {
             List<Node> nodes = new List<Node>();
 
@@ -78,7 +67,6 @@ namespace AlgorithmsDataStructures
         public bool Remove(int _value)
         {
             // здесь будет ваш код удаления одного узла по заданному значению
-
             Node current = head;
             Node previous = null;
 
