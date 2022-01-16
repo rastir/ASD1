@@ -5,27 +5,29 @@ namespace AlgorithmsDataStructures
 {
     public class Node
     {
-        public int value; //Класс Node является обобщенным, поэтому может хранить данные любого типа. Для хранения данных предназначено свойство value.
-        public Node next; //Для ссылки на следующий узел определено свойство Next.
+        public int value; //РљР»Р°СЃСЃ Node СЏРІР»СЏРµС‚СЃСЏ РѕР±РѕР±С‰РµРЅРЅС‹Рј, РїРѕСЌС‚РѕРјСѓ РјРѕР¶РµС‚ С…СЂР°РЅРёС‚СЊ РґР°РЅРЅС‹Рµ Р»СЋР±РѕРіРѕ С‚РёРїР°. Р”Р»СЏ С…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С… РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРѕ СЃРІРѕР№СЃС‚РІРѕ value.
+        public Node next; //Р”Р»СЏ СЃСЃС‹Р»РєРё РЅР° СЃР»РµРґСѓСЋС‰РёР№ СѓР·РµР» РѕРїСЂРµРґРµР»РµРЅРѕ СЃРІРѕР№СЃС‚РІРѕ Next.
         public Node(int _value) 
         { 
             value = _value; 
         }
     }
 
-    public class LinkedList 
+    // LinkedList, РєРѕС‚РѕСЂС‹Р№ СЃРѕР±СЃС‚РІРµРЅРЅРѕ Рё Р·Р°РґР°С‘С‚ СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє.     //"РѕР±С‘СЂС‚РєР°", СЃРёРЅС‚Р°РєСЃРёС‡РµСЃРєРёР№ СЃР°С…Р°СЂ РґР»СЏ СѓР·Р»РѕРІ.
+    //Р”Р°Р»РµРµ РѕРїСЂРµРґРµР»РёРј СЃР°Рј РєР»Р°СЃСЃ СЃРїРёСЃРєР°
+    public class LinkedList //РѕРґРЅРѕСЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє
     {
-        public Node? head;
-        public Node? tail; 
-        public int count;       
+        public Node? head; // РіРѕР»РѕРІРЅРѕР№/РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
+        public Node? tail; // РїРѕСЃР»РµРґРЅРёР№/С…РІРѕСЃС‚РѕРІРѕР№ СЌР»РµРјРµРЅС‚
+        public int count;        // РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ СЃРїРёСЃРєРµ
 
-        public LinkedList()  
+        public LinkedList() //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР°, РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј 
         {
-            head = null; 
-            tail = null; 
+            head = null; //РїРѕР»Рµ head - СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СѓР·РµР»-РіРѕР»РѕРІСѓ СЃРїРёСЃРєР° 
+            tail = null; //РїРѕР»Рµ tail -- СЌС‚Рѕ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р·Р°РІРµСЂС€Р°СЋС‰РёР№ СѓР·РµР».
         }
         
-        public void AddInTail(Node _item) 
+        public void AddInTail(Node _item) //РґРѕР°Р±РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ СѓР·Р»Р° РІ РєРѕРЅРµС† СЃРїРёСЃРєР°
         {
             if (head == null)
                 head = _item;
@@ -49,10 +51,11 @@ namespace AlgorithmsDataStructures
 
         }
 
-        public List<Node> FindAll(int _value) 
+        public List<Node> FindAll(int _value) //РїРѕРёСЃРє РІСЃРµС… Р·РЅР°С‡РµРЅРёР№ РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ
         {
             List<Node> nodes = new List<Node>();
 
+            // Р·РґРµСЃСЊ Р±СѓРґРµС‚ РІР°С€ РєРѕРґ РїРѕРёСЃРєР° РІСЃРµС… СѓР·Р»РѕРІ РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ
             var current = head;
             while (current != null)
             {
@@ -65,10 +68,11 @@ namespace AlgorithmsDataStructures
 
         public bool Remove(int _value)
         {
+            // Р·РґРµСЃСЊ Р±СѓРґРµС‚ РІР°С€ РєРѕРґ СѓРґР°Р»РµРЅРёСЏ РѕРґРЅРѕРіРѕ СѓР·Р»Р° РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ
             Node current = head;
             Node previous = null;
 
-            // поиск удаляемого узла
+            // РїРѕРёСЃРє СѓРґР°Р»СЏРµРјРѕРіРѕ СѓР·Р»Р°
             while (current != null)
             {
                 if (current.value == _value)
@@ -80,31 +84,21 @@ namespace AlgorithmsDataStructures
             }
             if (current != null)
             {
-                //узел первый
+                //СѓР·РµР» РїРµСЂРІС‹Р№
                 if (current == head)
                     head = current.next;
                 
-                //узел не последний
+                //СѓР·РµР» РЅРµ РїРѕСЃР»РµРґРЅРёР№
                 else if (current.next != null)
                 {    
                     previous.next = current.next; 
                 }
                 else
                 {
-                    // если последний, переустанавливаем tail
+                    // РµСЃР»Рё РїРѕСЃР»РµРґРЅРёР№, РїРµСЂРµСѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј tail
                     tail = current;
                 }
 
-                //// если узел не первый
-                //if (current != head)
-                //{
-                //    previous.next = current.next;
-                //}
-                //else
-                //{
-                //    // если первый, переустанавливаем head
-                //    head = current;
-                //}
                 count--;
                 return true;
             }
@@ -113,7 +107,7 @@ namespace AlgorithmsDataStructures
 
         public void RemoveAll(int _value)
         {
-            // здесь будет ваш код удаления всех узлов по заданному значению
+            // Р·РґРµСЃСЊ Р±СѓРґРµС‚ РІР°С€ РєРѕРґ СѓРґР°Р»РµРЅРёСЏ РІСЃРµС… СѓР·Р»РѕРІ РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ
             Node current = head;
             Node previous = null;
 
@@ -121,24 +115,24 @@ namespace AlgorithmsDataStructures
             {
                 if (current.value == _value)
                 {
-                    // Если узел в середине или в конце
+                    // Р•СЃР»Рё СѓР·РµР» РІ СЃРµСЂРµРґРёРЅРµ РёР»Рё РІ РєРѕРЅС†Рµ
                     if (previous != null)
                     {
-                        // убираем узел current, теперь previous ссылается не на current, а на current.Next
+                        // СѓР±РёСЂР°РµРј СѓР·РµР» current, С‚РµРїРµСЂСЊ previous СЃСЃС‹Р»Р°РµС‚СЃСЏ РЅРµ РЅР° current, Р° РЅР° current.Next
                         previous.next = current.next;
 
-                        // Если current.Next не установлен, значит узел последний,
-                        // изменяем переменную tail
+                        // Р•СЃР»Рё current.Next РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ, Р·РЅР°С‡РёС‚ СѓР·РµР» РїРѕСЃР»РµРґРЅРёР№,
+                        // РёР·РјРµРЅСЏРµРј РїРµСЂРµРјРµРЅРЅСѓСЋ tail
                         if (current.next == null)
                             tail = previous;
                     }
                     else
                     {
-                        // если удаляется первый элемент
-                        // переустанавливаем значение head
+                        // РµСЃР»Рё СѓРґР°Р»СЏРµС‚СЃСЏ РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
+                        // РїРµСЂРµСѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ head
                         head = head.next;
 
-                        // если после удаления список пуст, сбрасываем tail
+                        // РµСЃР»Рё РїРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ СЃРїРёСЃРѕРє РїСѓСЃС‚, СЃР±СЂР°СЃС‹РІР°РµРј tail
                         if (head == null)
                             tail = null;
                     }
@@ -147,22 +141,19 @@ namespace AlgorithmsDataStructures
                 previous = current;
                 current = current.next;
             }
-
-            // здесь будет ваш код удаления одного узла по заданному значению
         }
 
         public void Clear()
         {
-            // здесь будет ваш код очистки всего списка
+            // Р·РґРµСЃСЊ Р±СѓРґРµС‚ РІР°С€ РєРѕРґ РѕС‡РёСЃС‚РєРё РІСЃРµРіРѕ СЃРїРёСЃРєР°
             head = null;
             tail = head;
             count = 0;
-
         }
 
         public int Count()
         {
-            // здесь будет ваш код подсчёта количества элементов в списке
+            // Р·РґРµСЃСЊ Р±СѓРґРµС‚ РІР°С€ РєРѕРґ РїРѕРґСЃС‡С‘С‚Р° РєРѕР»РёС‡РµСЃС‚РІР° СЌР»РµРјРµРЅС‚РѕРІ РІ СЃРїРёСЃРєРµ
             Node current = head;
             int count = 0;
 
@@ -181,8 +172,8 @@ namespace AlgorithmsDataStructures
             if (_nodeToInsert == null)
                 return;
 
-            // если _nodeAfter = null , 
-            // добавьте новый элемент первым в списке 
+            // РµСЃР»Рё _nodeAfter = null , 
+            // РґРѕР±Р°РІСЊС‚Рµ РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚ РїРµСЂРІС‹Рј РІ СЃРїРёСЃРєРµ 
 
             if (_nodeAfter is null)
             {
@@ -219,10 +210,8 @@ namespace AlgorithmsDataStructures
 
             if (nodes1.Count == 0)
                 return result;
-            //throw new ArgumentNullException("Argument {0} is Null!");
             if (nodes2.Count == 0)
                 return result;
-            //throw new ArgumentNullException("Argument {1} is Null!");
 
             if (nodes1.Count() == nodes2.Count())
             {
