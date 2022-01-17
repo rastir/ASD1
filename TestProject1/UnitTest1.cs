@@ -6,13 +6,13 @@ using AlgorithmsDataStructures;
 namespace TestProject1
 {
     ///<summary> 
-    ///Тесты для задания "Связный (связанный) список"
+    ///РўРµСЃС‚С‹ РґР»СЏ Р·Р°РґР°РЅРёСЏ "РЎРІСЏР·РЅС‹Р№ (СЃРІСЏР·Р°РЅРЅС‹Р№) СЃРїРёСЃРѕРє"
     /// </summary>
     [TestClass]
     public class AlgorithmsDataStructures
     {
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
         public void LinkedList_AddInTail()
         {
             try
@@ -43,8 +43,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Find1() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Find1() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -75,8 +75,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Find2() //когда связный список пустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Find2() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -99,8 +99,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_FindAll_notnull() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_FindAll_notnull() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -132,8 +132,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_FindAll_null() //когда связный список пустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_FindAll_null() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -157,8 +157,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Remove_notnull() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Remove_notnull() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -192,8 +192,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_RemoveAll_null() //когда связный список пустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_RemoveAll_null() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -218,8 +218,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_RemoveAll_notnull() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_RemoveAll_notnull() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -252,8 +252,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Clear_null() //когда связный список пустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Clear_null() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -278,8 +278,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Clear_notnull() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Clear_notnull() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -312,8 +312,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Count_null() //когда связный список пустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Count_null() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -337,8 +337,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Count_notnull() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Count_notnull() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -370,8 +370,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_InsertAfter_null() //когда связный список пустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_InsertAfter_null() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -403,7 +403,7 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
         public void LinkedList_InsertAfter_notnull0()
         {
             try
@@ -436,8 +436,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_InsertAfter_notnull1() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_InsertAfter_notnull1() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -471,8 +471,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_InsertAfter_notnull2() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_InsertAfter_notnull2() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -506,8 +506,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Equal_Lenght_null() //когда связный список пустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Equal_Lenght_null() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№
         {
             try
             {
@@ -537,8 +537,8 @@ namespace TestProject1
             }
         }
         [TestMethod]
-        [TestCategory("АСД 1-й курс")]
-        public void LinkedList_Equal_Lenght_notnull() //когда связный список НЕпустой
+        [TestCategory("РђРЎР” 1-Р№ РєСѓСЂСЃ")]
+        public void LinkedList_Equal_Lenght_notnull() //РєРѕРіРґР° СЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє РќР•РїСѓСЃС‚РѕР№
         {
             try
             {
