@@ -1,5 +1,5 @@
-//using System;
-//using System.Collections.Generic;
+////using System;
+////using System.Collections.Generic;
 
 //namespace AlgorithmsDataStructures
 //{
@@ -17,9 +17,8 @@
 //    //Далее определим сам класс списка
 //    public class LinkedList //односвязный список
 //    {
-//        public Node? head; // головной/первый элемент
-//        public Node? tail; // последний/хвостовой элемент
-//        public int count;        // количество элементов в списке
+//        public Node head; // головной/первый элемент
+//        public Node tail; // последний/хвостовой элемент
 
 //        public LinkedList() //конструктор класса, инициализируем 
 //        {
@@ -34,8 +33,6 @@
 //            else
 //                tail.next = _item;
 //            tail = _item;
-
-//            count++;
 //        }
 
 //        public Node Find(int _value)
@@ -59,7 +56,7 @@
 //            var current = head;
 //            while (current != null)
 //            {
-//                if (current.Equals(_value))
+//                if (current.value == _value)
 //                    nodes.Add(current);
 //                current = current.next;
 //            }
@@ -99,7 +96,7 @@
 //                    tail = current;
 //                }
 
-//                count--;
+//                //count--;
 //                return true;
 //            }
 //            return false;
@@ -136,7 +133,6 @@
 //                        if (head == null)
 //                            tail = null;
 //                    }
-//                    count--;
 //                }
 //                previous = current;
 //                current = current.next;
@@ -148,7 +144,6 @@
 //            // здесь будет ваш код очистки всего списка
 //            head = null;
 //            tail = head;
-//            count = 0;
 //        }
 
 //        public int Count()
@@ -203,7 +198,6 @@
 //        }
 //        public List<int> Equal_Lenght(LinkedList<int> nodes1, LinkedList<int> nodes2)
 //        {
-//            //Node nodes1 = head;
 //            var current1 = nodes1.First;
 //            var current2 = nodes2.First;
 //            List<int> result = new List<int>();

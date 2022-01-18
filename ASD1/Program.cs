@@ -93,14 +93,13 @@ namespace AlgorithmsDataStructures
     {
         public Node head; // головной/первый элемент
         public Node tail; // последний/хвостовой элемент
-        //public int count;        // количество элементов в списке
 
         public LinkedList() //конструктор класса, инициализируем 
         {
             head = null; //поле head - указатель на узел-голову списка 
             tail = null; //поле tail -- это указатель на завершающий узел.
         }
-        
+
         public void AddInTail(Node _item) //доабвление нового узла в конец списка
         {
             if (head == null)
@@ -179,39 +178,80 @@ namespace AlgorithmsDataStructures
 
         public void RemoveAll(int _value)
         {
-            // здесь будет ваш код удаления всех узлов по заданному значению
-            Node current = head;
-            Node previous = null;
 
+            // здесь будет ваш код удаления всех узлов по заданному значению
+            //Node current = head;
+            //Node previous = null;
+            #region
+            //while (current != null)
+            //{
+            //    if (current.value == _value)
+            //    {
+            //        // Если узел в середине или в конце
+            //        if (previous != null)
+            //        {
+            //            // убираем узел current, теперь previous ссылается не на current, а на current.Next
+            //            previous.next = current.next;
+
+            //            // Если current.Next не установлен, значит узел последний,
+            //            // изменяем переменную tail
+            //            if (current.next == null)
+            //                tail = previous;
+            //        }
+            //        else
+            //        {
+            //            // если удаляется первый элемент
+            //            // переустанавливаем значение head
+            //            head = head.next;
+
+            //            // если после удаления список пуст, сбрасываем tail
+            //            if (head == null)
+            //                tail = null;
+            //        }
+            //    }
+            //    previous = current;
+            //    current = current.next;
+            //}
+            #endregion
+            // Store head node
+            Node current = head, prev = null;
+
+            // If head node itself holds the key
+            // or multiple occurrences of key
+            while (current != null && current.value == _value)
+            {
+                head = current.next; // Changed head
+                //tail = current.next;
+                current = head; // Change current
+                if (current != null && current.next == null)
+                    tail = current.next;
+            }
+
+            // Delete occurrences other than head
             while (current != null)
             {
-                if (current.value == _value)
+                // Search for the key to be deleted,
+                // keep track of the previous node
+                // as we need to change 'prev->next'
+                while (current != null && current.value != _value)
                 {
-                    // Если узел в середине или в конце
-                    if (previous != null)
-                    {
-                        // убираем узел current, теперь previous ссылается не на current, а на current.Next
-                        previous.next = current.next;
-
-                        // Если current.Next не установлен, значит узел последний,
-                        // изменяем переменную tail
-                        if (current.next == null)
-                            tail = previous;
-                    }
-                    else
-                    {
-                        // если удаляется первый элемент
-                        // переустанавливаем значение head
-                        head = head.next;
-
-                        // если после удаления список пуст, сбрасываем tail
-                        if (head == null)
-                            tail = null;
-                    }
+                    prev = current;
+                    current = current.next;
                 }
-                previous = current;
-                current = current.next;
+
+                // If key was not present in linked list
+                if (current == null)
+                    return;
+
+                // Unlink the node from linked list
+                prev.next = current.next;
+
+                // Update current for next iteration of outer loop
+                current = prev.next;
+                if (current == null && prev.next == null)
+                    tail = prev;
             }
+            //tail = head;
         }
 
         public void Clear()
@@ -248,7 +288,14 @@ namespace AlgorithmsDataStructures
             if (_nodeAfter is null)
             {
                 if (head == null)
+                {
                     head = _nodeToInsert;
+                    if (head.next == null)
+                    {
+                        //head.next = head;
+                        tail = head;
+                    }
+                }
                 else
                 {
                     Node node = new Node(_nodeToInsert.value);
@@ -265,6 +312,9 @@ namespace AlgorithmsDataStructures
                         Node node = new Node(_nodeToInsert.value);
                         current.next = node;
                         node.next = _nodeToInsert;
+
+                        if (current.next.next == null && current.next != null)
+                            tail = current.next;
                         break;
                     }
                     current = current.next;
@@ -273,7 +323,6 @@ namespace AlgorithmsDataStructures
         }
         public List<int> Equal_Lenght(LinkedList<int> nodes1, LinkedList<int> nodes2)
         {
-            //Node nodes1 = head;
             var current1 = nodes1.First;
             var current2 = nodes2.First;
             List<int> result = new List<int>();
@@ -296,6 +345,20 @@ namespace AlgorithmsDataStructures
                 }
             }
             return result;
+        }
+
+        public List<int> PrintAllNodes()
+        {
+            List<int> print_nodes = new List<int>();
+            Node current = head;
+            Console.WriteLine();
+            while (current != null)
+            {
+                print_nodes.Add(current.value);
+                Console.Write(" "+current.value);
+                current = current.next;
+            }
+            return print_nodes;
         }
         static void Main()
         {
@@ -324,9 +387,28 @@ namespace AlgorithmsDataStructures
             //    Console.Write(" "+ InsertAfter(list1., nodes2));
             //}            
             //Console.ReadKey();
+            //-------------------
+            //Node n1 = new(12);
+            //Node n2 = new(55);
+            //n1.next = n2;
 
+            //LinkedList s_list2 = new LinkedList();
+            //s_list2.AddInTail(n1);
+            //s_list2.AddInTail(n2);
+            //s_list2.AddInTail(new Node(128));
+            //s_list2.AddInTail(new Node(55));
 
+            //List<int> print_nodes = new List<int>();
+            //s_list2.PrintAllNodes();
 
+            //foreach (var item in s_list2.PrintAllNodes())
+            //{
+            //    Console.Write(" " + item);
+            //}
+            //Console.WriteLine(print_nodes.Count());
+            //s_list2.RemoveAll(n2.value);
+            //s_list2.PrintAllNodes();
+            //Console.ReadKey();
         }
     }
 }
