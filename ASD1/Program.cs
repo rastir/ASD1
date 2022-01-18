@@ -346,20 +346,6 @@ namespace AlgorithmsDataStructures
             }
             return result;
         }
-
-        public List<int> PrintAllNodes()
-        {
-            List<int> print_nodes = new List<int>();
-            Node current = head;
-            Console.WriteLine();
-            while (current != null)
-            {
-                print_nodes.Add(current.value);
-                Console.Write(" "+current.value);
-                current = current.next;
-            }
-            return print_nodes;
-        }
         static void Main()
         {
             //1-я часть
