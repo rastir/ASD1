@@ -91,8 +91,8 @@ namespace AlgorithmsDataStructures
     //Далее определим сам класс списка
     public class LinkedList //односвязный список
     {
-        public Node? head; // головной/первый элемент
-        public Node? tail; // последний/хвостовой элемент
+        public Node head; // головной/первый элемент
+        public Node tail; // последний/хвостовой элемент
         public int count;        // количество элементов в списке
 
         public LinkedList() //конструктор класса, инициализируем 
@@ -103,11 +103,36 @@ namespace AlgorithmsDataStructures
         
         public void AddInTail(Node _item) //доабвление нового узла в конец списка
         {
+            //var current = head;
+            //if (head is null && head.next is not null)
+            //    head = _item;
+            //else if (head is not null && head.next is null)
+            //{
+            //    head.next = _item;
+            //    tail = _item;
+            //}
+            //else 
+            //    tail.next = _item;
+            //tail = _item;
             if (head == null)
                 head = _item;
             else
                 tail.next = _item;
             tail = _item;
+
+            //if (tail == null)
+            //{
+            //    tail = _item;
+            //    head = _item;
+            //    count++;
+            //    return;
+            //}
+
+            //var oldTail = tail;
+            //tail = _item;
+            //oldTail.next = _item;
+            ////tail.prev = oldTail;
+            //tail.next = null;
 
             count++;
         }
@@ -133,7 +158,7 @@ namespace AlgorithmsDataStructures
             var current = head;
             while (current != null)
             {
-                if (current.Equals(_value))
+                if (current.value == _value)
                     nodes.Add(current);
                 current = current.next;
             }

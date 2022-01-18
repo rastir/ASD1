@@ -13,7 +13,7 @@ namespace TestProject1
     {
         [TestMethod]
         [TestCategory("АСД 1-й курс")]
-        public void LinkedList_AddInTail()
+        public void LinkedList_AddInTail_many_elements()
         {
             try
             {
@@ -27,6 +27,39 @@ namespace TestProject1
                 s_list.AddInTail(new Node(128));
 
                 Assert.AreEqual(3, s_list.count);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST 2 ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"LinkedList_AddInTail\" PASSED");
+            }
+        }
+        [TestMethod]
+        [TestCategory("АСД 1-й курс")]
+        public void LinkedList_AddInTail_one_element()
+        {
+            try
+            {
+                Node n1 = new(12);
+                Node n2 = new(12);
+                n1.next = n2;
+                LinkedList s_list = new LinkedList();
+                s_list.head = n1;
+                s_list.tail = n2;
+
+                Node n3 = new(55);
+                Node n4 = new(56);
+                s_list.AddInTail(n3);
+                s_list.AddInTail(n4);
+                Assert.AreEqual(4, s_list.Count());
             }
             catch (IndexOutOfRangeException e)
             {
@@ -100,7 +133,7 @@ namespace TestProject1
         }
         [TestMethod]
         [TestCategory("АСД 1-й курс")]
-        public void LinkedList_FindAll_notnull() //когда связный список НЕпустой
+        public void LinkedList_FindAll_many_elements() 
         {
             try
             {
@@ -113,9 +146,44 @@ namespace TestProject1
                 s_list2.AddInTail(n2);
                 s_list2.AddInTail(new Node(128));
                 s_list2.AddInTail(new Node(55));
+                s_list2.AddInTail(new Node(55));
+                s_list2.AddInTail(new Node(55));
+                s_list2.AddInTail(new Node(55));
+                s_list2.AddInTail(new Node(55));
+                s_list2.AddInTail(new Node(55));
+                s_list2.AddInTail(new Node(55));
 
                 List<Node> nodes = s_list2.FindAll(n2.value);
                 Assert.IsNotNull(nodes);
+                Assert.AreEqual(8, nodes.Count);    
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST 2 ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"LinkedList_AddInTail\" PASSED");
+            }
+        }
+        [TestMethod]
+        [TestCategory("АСД 1-й курс")]
+        public void LinkedList_FindAll_one_element() //когда связный список НЕпустой
+        {
+            try
+            {
+                Node n1 = new(12);
+                LinkedList s_list2 = new LinkedList();
+                s_list2.AddInTail(n1);
+
+                List<Node> nodes = s_list2.FindAll(n1.value);
+                Assert.IsNotNull(nodes);
+                Assert.AreEqual(1, nodes.Count);   
             }
             catch (IndexOutOfRangeException e)
             {
