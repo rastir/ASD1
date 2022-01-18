@@ -26,7 +26,7 @@ namespace TestProject1
                 s_list.AddInTail(n2);
                 s_list.AddInTail(new Node(128));
 
-                Assert.AreEqual(3, s_list.count);
+                Assert.AreEqual(3, s_list.Count());
             }
             catch (IndexOutOfRangeException e)
             {
@@ -242,7 +242,7 @@ namespace TestProject1
 
                 bool result = s_list2.Remove(n2.value);
                 Assert.IsTrue(result);
-                int res = s_list2.count;
+                int res = s_list2.Count();
                 Assert.AreEqual(3, res);
             }
             catch (IndexOutOfRangeException e)
@@ -268,7 +268,7 @@ namespace TestProject1
                 LinkedList s_list2 = new LinkedList();
 
                 s_list2.RemoveAll(12);
-                int res = s_list2.count;
+                int res = s_list2.Count();
                 Assert.AreEqual(0, res);
             }
             catch (IndexOutOfRangeException e)
@@ -302,7 +302,7 @@ namespace TestProject1
                 s_list2.AddInTail(new Node(55));
 
                 s_list2.RemoveAll(n2.value);
-                int res = s_list2.count;
+                int res = s_list2.Count();
                 Assert.AreEqual(2, res);
             }
             catch (IndexOutOfRangeException e)
@@ -328,7 +328,7 @@ namespace TestProject1
                 LinkedList s_list2 = new LinkedList();
 
                 s_list2.Clear();
-                int res = s_list2.count;
+                int res = s_list2.Count();
                 Assert.AreEqual(0, res);
             }
             catch (IndexOutOfRangeException e)
@@ -362,7 +362,7 @@ namespace TestProject1
                 s_list2.AddInTail(new Node(55));
 
                 s_list2.Clear();
-                int res = s_list2.count;
+                int res = s_list2.Count();
                 Assert.AreEqual(0, res);
             }
             catch (IndexOutOfRangeException e)

@@ -93,7 +93,7 @@ namespace AlgorithmsDataStructures
     {
         public Node head; // головной/первый элемент
         public Node tail; // последний/хвостовой элемент
-        public int count;        // количество элементов в списке
+        //public int count;        // количество элементов в списке
 
         public LinkedList() //конструктор класса, инициализируем 
         {
@@ -103,38 +103,11 @@ namespace AlgorithmsDataStructures
         
         public void AddInTail(Node _item) //доабвление нового узла в конец списка
         {
-            //var current = head;
-            //if (head is null && head.next is not null)
-            //    head = _item;
-            //else if (head is not null && head.next is null)
-            //{
-            //    head.next = _item;
-            //    tail = _item;
-            //}
-            //else 
-            //    tail.next = _item;
-            //tail = _item;
             if (head == null)
                 head = _item;
             else
                 tail.next = _item;
             tail = _item;
-
-            //if (tail == null)
-            //{
-            //    tail = _item;
-            //    head = _item;
-            //    count++;
-            //    return;
-            //}
-
-            //var oldTail = tail;
-            //tail = _item;
-            //oldTail.next = _item;
-            ////tail.prev = oldTail;
-            //tail.next = null;
-
-            count++;
         }
 
         public Node Find(int _value)
@@ -198,7 +171,7 @@ namespace AlgorithmsDataStructures
                     tail = current;
                 }
 
-                count--;
+                //count--;
                 return true;
             }
             return false;
@@ -235,7 +208,6 @@ namespace AlgorithmsDataStructures
                         if (head == null)
                             tail = null;
                     }
-                    count--;
                 }
                 previous = current;
                 current = current.next;
@@ -247,7 +219,6 @@ namespace AlgorithmsDataStructures
             // здесь будет ваш код очистки всего списка
             head = null;
             tail = head;
-            count = 0;
         }
 
         public int Count()
