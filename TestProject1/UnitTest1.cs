@@ -1006,6 +1006,8 @@ namespace TestProject1
 
                 int res = s_list2.Count();
                 Assert.AreEqual(5, res);
+                Assert.AreEqual(12, s_list2.head.value);
+                Assert.AreEqual(55, s_list2.tail.value);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -1045,8 +1047,8 @@ namespace TestProject1
                 s_list2.InsertAfter(n4, nn);
 
                 Assert.AreEqual(5, s_list2.Count());
-                Assert.AreEqual(12, s_list2.head);
-                Assert.AreEqual(111, s_list2.tail);
+                Assert.AreEqual(12, s_list2.head.value);
+                Assert.AreEqual(111, s_list2.tail.value);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -1077,8 +1079,8 @@ namespace TestProject1
                 s_list2.InsertAfter(n1, nn);
 
                 Assert.AreEqual(2, s_list2.Count());
-                Assert.AreEqual(12, s_list2.head);
-                Assert.AreEqual(111, s_list2.tail);
+                Assert.AreEqual(12, s_list2.head.value);
+                Assert.AreEqual(111, s_list2.tail.value);
             }
             catch (IndexOutOfRangeException e)
             {

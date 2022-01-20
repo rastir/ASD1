@@ -278,8 +278,12 @@ namespace AlgorithmsDataStructures
                     if (current == _nodeAfter)
                     {
                         Node node = new Node(_nodeToInsert.value);
+                        if (current.next == null)
+                            tail = node;
+                        else 
+                            node.next = current.next;
                         current.next = node;
-                        node.next = _nodeToInsert;
+                        node = null;
                         break;
                     }
                     current = current.next;
