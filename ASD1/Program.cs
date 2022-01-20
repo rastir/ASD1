@@ -81,9 +81,9 @@ namespace AlgorithmsDataStructures
     {
         public int value; //Класс Node является обобщенным, поэтому может хранить данные любого типа. Для хранения данных предназначено свойство value.
         public Node next; //Для ссылки на следующий узел определено свойство Next.
-        public Node(int _value) 
-        { 
-            value = _value; 
+        public Node(int _value)
+        {
+            value = _value;
         }
     }
 
@@ -114,7 +114,7 @@ namespace AlgorithmsDataStructures
             Node? node = head;
             while (node != null)
             {
-                if (node.value == _value) 
+                if (node.value == _value)
                     return node;
                 node = node.next;
             }
@@ -157,17 +157,22 @@ namespace AlgorithmsDataStructures
             {
                 //узел первый
                 if (current == head)
+                {
+                    if (current.next == null)
+                        tail = current.next;
                     head = current.next;
-                
+                }
+
                 //узел не последний
                 else if (current.next != null)
-                {    
-                    previous.next = current.next; 
+                {
+                    previous.next = current.next;
                 }
                 else
                 {
                     // если последний, переустанавливаем tail
-                    tail = current;
+                    tail = previous;
+                    previous.next = current.next;
                 }
 
                 //count--;
@@ -178,53 +183,23 @@ namespace AlgorithmsDataStructures
 
         public void RemoveAll(int _value)
         {
+            Node current = head, previous = null;
 
-            // здесь будет ваш код удаления всех узлов по заданному значению
-            //Node current = head;
-            //Node previous = null;
-            #region
-            //while (current != null)
-            //{
-            //    if (current.value == _value)
-            //    {
-            //        // Если узел в середине или в конце
-            //        if (previous != null)
-            //        {
-            //            // убираем узел current, теперь previous ссылается не на current, а на current.Next
-            //            previous.next = current.next;
-
-            //            // Если current.Next не установлен, значит узел последний,
-            //            // изменяем переменную tail
-            //            if (current.next == null)
-            //                tail = previous;
-            //        }
-            //        else
-            //        {
-            //            // если удаляется первый элемент
-            //            // переустанавливаем значение head
-            //            head = head.next;
-
-            //            // если после удаления список пуст, сбрасываем tail
-            //            if (head == null)
-            //                tail = null;
-            //        }
-            //    }
-            //    previous = current;
-            //    current = current.next;
-            //}
-            #endregion
-            // Store head node
-            Node current = head, prev = null;
-
-            // If head node itself holds the key
-            // or multiple occurrences of key
+            //delete occurrences head
             while (current != null && current.value == _value)
             {
-                head = current.next; // Changed head
-                //tail = current.next;
-                current = head; // Change current
+                head = current.next; 
+                current = head;
+
                 if (current != null && current.next == null)
-                    tail = current.next;
+                {
+                    tail = previous;
+                    if (previous != null)
+                        previous.next = current.next;
+                    //tail = current.next;
+                }
+                if (current == null)
+                    tail = previous;
             }
 
             // Delete occurrences other than head
@@ -235,7 +210,7 @@ namespace AlgorithmsDataStructures
                 // as we need to change 'prev->next'
                 while (current != null && current.value != _value)
                 {
-                    prev = current;
+                    previous = current;
                     current = current.next;
                 }
 
@@ -244,12 +219,12 @@ namespace AlgorithmsDataStructures
                     return;
 
                 // Unlink the node from linked list
-                prev.next = current.next;
+                previous.next = current.next;
 
                 // Update current for next iteration of outer loop
-                current = prev.next;
-                if (current == null && prev.next == null)
-                    tail = prev;
+                current = previous.next;
+                if (current == null && previous.next == null)
+                    tail = previous;
             }
             //tail = head;
         }
@@ -268,7 +243,7 @@ namespace AlgorithmsDataStructures
             int count = 0;
 
             while (current != null)
-            { 
+            {
                 count++;
                 current = current.next;
             }
@@ -288,14 +263,7 @@ namespace AlgorithmsDataStructures
             if (_nodeAfter is null)
             {
                 if (head == null)
-                {
                     head = _nodeToInsert;
-                    if (head.next == null)
-                    {
-                        //head.next = head;
-                        tail = head;
-                    }
-                }
                 else
                 {
                     Node node = new Node(_nodeToInsert.value);
@@ -312,9 +280,6 @@ namespace AlgorithmsDataStructures
                         Node node = new Node(_nodeToInsert.value);
                         current.next = node;
                         node.next = _nodeToInsert;
-
-                        if (current.next.next == null && current.next != null)
-                            tail = current.next;
                         break;
                     }
                     current = current.next;
