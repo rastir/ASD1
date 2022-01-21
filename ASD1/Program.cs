@@ -263,7 +263,10 @@ namespace AlgorithmsDataStructures
             if (_nodeAfter is null)
             {
                 if (head == null)
+                {
                     head = _nodeToInsert;
+                    tail = head;
+                }
                 else
                 {
                     Node node = new Node(_nodeToInsert.value);

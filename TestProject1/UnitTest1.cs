@@ -77,6 +77,33 @@ namespace TestProject1
         }
         [TestMethod]
         [TestCategory("АСД 1-й курс")]
+        public void LinkedList_AddInTail_empty_elements()
+        {
+            try
+            {
+                LinkedList s_list = new LinkedList();
+                s_list.AddInTail(new Node(128));
+
+                Assert.AreEqual(1, s_list.Count());
+                Assert.AreEqual(s_list.head.value, 128);
+                Assert.AreEqual(s_list.tail.value, 128);    
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST 2 ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"LinkedList_AddInTail\" PASSED");
+            }
+        }
+        [TestMethod]
+        [TestCategory("АСД 1-й курс")]
         public void LinkedList_Find1() 
         {
             try
@@ -826,7 +853,7 @@ namespace TestProject1
         }
         [TestMethod]
         [TestCategory("АСД 1-й курс")]
-        public void LinkedList_InsertAfter_empty_first() 
+        public void LinkedList_InsertAfter_empty_first1() 
         {
             try
             {
@@ -839,7 +866,37 @@ namespace TestProject1
 
                 Assert.AreEqual(1, s_list2.Count());
                 Assert.AreEqual(s_list2.head.value, 12);
-                //Assert.AreEqual(s_list2.tail.value, 12); ??
+                Assert.AreEqual(s_list2.tail.value, 12);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST 2 ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"LinkedList_AddInTail\" PASSED");
+            }
+        }
+        [TestMethod]
+        [TestCategory("АСД 1-й курс")]
+        public void LinkedList_InsertAfter_empty_first2()
+        {
+            try
+            {
+                LinkedList s_list2 = new LinkedList();
+                Node n1 = new(12);
+                Node n2 = new(25);
+
+                s_list2.InsertAfter(n2, n1);
+                s_list2.InsertAfter(n1, n2);
+
+                if (s_list2.head != null || s_list2.tail != null || s_list2.Count() != 0)
+                    Assert.Fail();  
             }
             catch (IndexOutOfRangeException e)
             {
