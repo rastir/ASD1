@@ -44,6 +44,7 @@ namespace AlgorithmsDataStructures
                 node = node.next;
             }
             return null;
+
         }
 
         public List<Node> FindAll(int _value) //поиск всех значений по заданному значению
@@ -98,6 +99,8 @@ namespace AlgorithmsDataStructures
                     tail = previous;
                     previous.next = current.next;
                 }
+
+                //count--;
                 return true;
             }
             return false;
@@ -148,6 +151,7 @@ namespace AlgorithmsDataStructures
                 if (current == null && previous.next == null)
                     tail = previous;
             }
+            //tail = head;
         }
 
         public void Clear()
@@ -184,7 +188,10 @@ namespace AlgorithmsDataStructures
             if (_nodeAfter is null)
             {
                 if (head == null)
+                {
                     head = _nodeToInsert;
+                    tail = head;
+                }
                 else
                 {
                     Node node = new Node(_nodeToInsert.value);
