@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASD1\ASD1.csproj" />
+	<Compile Remove="UnitTest_one_linkedlist.cs" />
   </ItemGroup>
 
 </Project>
