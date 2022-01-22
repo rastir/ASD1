@@ -1,25 +1,29 @@
 using System;
 using System.Collections.Generic;
+
 namespace AlgorithmsDataStructures
 {
+    /// <summary>
+    /// Двунаправленный связанный список
+    /// </summary>
     public class Node
     {
         public int value; //Класс Node является обобщенным, поэтому может хранить данные любого типа. Для хранения данных предназначено свойство value.
-        public Node next; //Для ссылки на следующий узел определено свойство Next.
+        public Node next, prev; //Для ссылки на следующий узел определено свойство Next.
         public Node(int _value)
         {
             value = _value;
+            next = null;
+            prev = null;
         }
     }
-
-    // LinkedList, который собственно и задаёт связный список.     //"обёртка", синтаксический сахар для узлов.
-    //Далее определим сам класс списка
-    public class LinkedList //односвязный список
+    public class LinkedList2 //2хсвязный список
     {
         public Node head; // головной/первый элемент
         public Node tail; // последний/хвостовой элемент
+        public Node prev;
 
-        public LinkedList() //конструктор класса, инициализируем 
+        public LinkedList2() //конструктор класса, инициализируем 
         {
             head = null; //поле head - указатель на узел-голову списка 
             tail = null; //поле tail -- это указатель на завершающий узел.
@@ -28,12 +32,23 @@ namespace AlgorithmsDataStructures
         public void AddInTail(Node _item) //доабвление нового узла в конец списка
         {
             if (head == null)
+            {
                 head = _item;
+                head.next = null;
+                head.prev = null;
+            }
             else
+            {
                 tail.next = _item;
+                _item.prev = tail;
+            }
             tail = _item;
         }
-
+        /// <summary>
+        /// 1. Метод поиска первого узла по его значению.
+        /// </summary>
+        /// <param name="_value"></param>
+        /// <returns></returns>
         public Node Find(int _value)
         {
             Node? node = head;
@@ -44,13 +59,17 @@ namespace AlgorithmsDataStructures
                 node = node.next;
             }
             return null;
-        }
 
+        }
+        /// <summary>
+        /// 2. Метод поиска всех узлов по конкретному значению (возвращается список/массив найденных узлов).
+        /// </summary>
+        /// <param name="_value"></param>
+        /// <returns></returns>
         public List<Node> FindAll(int _value) //поиск всех значений по заданному значению
         {
             List<Node> nodes = new List<Node>();
 
-            // здесь будет ваш код поиска всех узлов по заданному значению
             var current = head;
             while (current != null)
             {
@@ -60,7 +79,11 @@ namespace AlgorithmsDataStructures
             }
             return nodes;
         }
-
+        /// <summary>
+        /// 3. Метод удаления одного узла по его значению
+        /// </summary>
+        /// <param name="_value"></param>
+        /// <returns></returns>
         public bool Remove(int _value)
         {
             // здесь будет ваш код удаления одного узла по заданному значению
@@ -82,15 +105,22 @@ namespace AlgorithmsDataStructures
                 //узел первый
                 if (current == head)
                 {
+                    //узел первый и последний
                     if (current.next == null)
+                    {
                         tail = current.next;
+                        head = current.next;
+                        return true;
+                    }
                     head = current.next;
+                    head.prev = previous;
                 }
 
                 //узел не последний
                 else if (current.next != null)
                 {
                     previous.next = current.next;
+                    current.next.prev = previous;
                 }
                 else
                 {
@@ -98,11 +128,16 @@ namespace AlgorithmsDataStructures
                     tail = previous;
                     previous.next = current.next;
                 }
+
+                //count--;
                 return true;
             }
             return false;
         }
-
+        /// <summary>
+        /// 4. Метод удаления всех узлов по конкретному значению.
+        /// </summary>
+        /// <param name="_value"></param>
         public void RemoveAll(int _value)
         {
             Node current = head, previous = null;
@@ -110,9 +145,25 @@ namespace AlgorithmsDataStructures
             //delete occurrences head
             while (current != null && current.value == _value)
             {
-                head = current.next;
-                current = head;
-
+                //первый узел
+                if (current.prev == null)
+                {
+                    //последний узел
+                    if (current.next == null)
+                    {
+                        head = current.next;
+                        tail = head;
+                        current = head;
+                        break;
+                    }
+                    else
+                    {
+                        current.next.prev = head.prev;
+                        head = current.next;
+                        current = head;
+                    }
+                }
+                //предпоследний узел
                 if (current != null && current.next == null)
                 {
                     tail = previous;
@@ -145,11 +196,68 @@ namespace AlgorithmsDataStructures
 
                 // Update current for next iteration of outer loop
                 current = previous.next;
+                if (current != null)
+                    current.prev = previous;
                 if (current == null && previous.next == null)
                     tail = previous;
             }
+            //tail = head;
         }
+        /// <summary>
+        /// 5. Метод вставки узла после заданного узла
+        /// 6. Метод вставки узла самым первым элементом (как вариант предыдущего пункта, например)
+        /// </summary>
+        /// <param name="_nodeAfter"></param>
+        /// <param name="_nodeToInsert"></param>
+        public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
+        {
+            Node current = head;
 
+            if (_nodeToInsert == null)
+                return;
+
+            // если _nodeAfter = null , 
+            // добавьте новый элемент первым в списке 
+
+            if (_nodeAfter is null)
+            {
+                if (head == null)
+                {
+                    head = _nodeToInsert;
+                    tail = head;
+                }
+                else
+                {
+                    Node node = new Node(_nodeToInsert.value);
+                    node.next = head;
+                    head = node;
+                }
+            }
+            else
+            {
+                while (current != null)
+                {
+                    if (current == _nodeAfter)
+                    {
+                        Node node = new Node(_nodeToInsert.value);
+                        if (current.next == null)
+                        {
+                            tail = node;
+                            tail.prev = current;
+                        }
+                        else
+                            node.next = current.next;
+                        current.next = node;
+                        node = null;
+                        break;
+                    }
+                    current = current.next;
+                }
+            }
+        }
+        /// <summary>
+        /// 7. Метод очистки всего содержимого (создание пустого списка).
+        /// </summary>
         public void Clear()
         {
             // здесь будет ваш код очистки всего списка
@@ -171,46 +279,7 @@ namespace AlgorithmsDataStructures
             return count;
         }
 
-        public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
-        {
-            Node current = head;
 
-            if (_nodeToInsert == null)
-                return;
-
-            // если _nodeAfter = null , 
-            // добавьте новый элемент первым в списке 
-
-            if (_nodeAfter is null)
-            {
-                if (head == null)
-                    head = _nodeToInsert;
-                else
-                {
-                    Node node = new Node(_nodeToInsert.value);
-                    node.next = head;
-                    head = node;
-                }
-            }
-            else
-            {
-                while (current != null)
-                {
-                    if (current == _nodeAfter)
-                    {
-                        Node node = new Node(_nodeToInsert.value);
-                        if (current.next == null)
-                            tail = node;
-                        else
-                            node.next = current.next;
-                        current.next = node;
-                        node = null;
-                        break;
-                    }
-                    current = current.next;
-                }
-            }
-        }
         public List<int> Equal_Lenght(LinkedList<int> nodes1, LinkedList<int> nodes2)
         {
             var current1 = nodes1.First;

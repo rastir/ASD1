@@ -102,7 +102,6 @@ namespace AlgorithmsDataStructures
         {
             List<Node> nodes = new List<Node>();
 
-            // здесь будет ваш код поиска всех узлов по заданному значению
             var current = head;
             while (current != null)
             {
@@ -138,15 +137,22 @@ namespace AlgorithmsDataStructures
                 //узел первый
                 if (current == head)
                 {
+                    //узел первый и последний
                     if (current.next == null)
+                    {
                         tail = current.next;
+                        head = current.next;
+                        return true;
+                    }
                     head = current.next;
+                    head.prev = previous;
                 }
 
                 //узел не последний
                 else if (current.next != null)
                 {
                     previous.next = current.next;
+                    current.next.prev = previous;
                 }
                 else
                 {
@@ -171,9 +177,25 @@ namespace AlgorithmsDataStructures
             //delete occurrences head
             while (current != null && current.value == _value)
             {
-                head = current.next;
-                current = head;
-
+                //первый узел
+                if (current.prev == null)
+                {
+                    //последний узел
+                    if (current.next == null)
+                    {
+                        head = current.next;
+                        tail = head;
+                        current = head;
+                        break;
+                    }
+                    else
+                    {
+                        current.next.prev = head.prev;
+                        head = current.next;
+                        current = head;
+                    }
+                }
+                //предпоследний узел
                 if (current != null && current.next == null)
                 {
                     tail = previous;
@@ -206,6 +228,8 @@ namespace AlgorithmsDataStructures
 
                 // Update current for next iteration of outer loop
                 current = previous.next;
+                if (current != null)
+                    current.prev = previous;
                 if (current == null && previous.next == null)
                     tail = previous;
             }
@@ -249,7 +273,10 @@ namespace AlgorithmsDataStructures
                     {
                         Node node = new Node(_nodeToInsert.value);
                         if (current.next == null)
+                        {
                             tail = node;
+                            tail.prev = current;
+                        }
                         else
                             node.next = current.next;
                         current.next = node;
