@@ -18,7 +18,6 @@
 	<None Remove="LinkedList.cs\**" />
 	<None Remove="projects_file_to_take\**" />
 	<CSFile Remove="Doubly_linkedlist.cs" />
-	<CSFile Remove="Dyn_Array.cs" />
 	<CSFile Remove="One_linkedlist.cs" />
 	<CSFile Remove="Passing.cs" />
 	<Compile Remove="Passing.cs" />
