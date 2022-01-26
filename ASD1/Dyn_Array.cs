@@ -99,17 +99,6 @@ namespace AlgorithmsDataStructures
             return array[index - 1];
             //return default(T);
         }
-        public void Resize(int new_capacity)
-        {
-            //if (count == 0)
-                //throw new ArgumentOutOfRangeException("пустой");
-
-            Array.Resize(ref array, new_capacity);
-
-            MakeArray(new_capacity); //задаем блок памяти
-
-            capacity = new_capacity;
-        }
         /// <summary>
         /// Метод добавления нового элемента в конец массива,
         /// </summary>
@@ -209,6 +198,17 @@ namespace AlgorithmsDataStructures
             //        array[array.Length - 1] = default(T);
             //    }
             //}
+        }
+        public void Resize(int new_capacity)
+        {
+            //if (count == 0)
+            //throw new ArgumentOutOfRangeException("пустой");
+
+            Array.Resize(ref array, new_capacity);
+
+            MakeArray(new_capacity); //задаем блок памяти
+
+            capacity = new_capacity;
         }
     }
     class CMain
