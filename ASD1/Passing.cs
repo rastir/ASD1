@@ -4,306 +4,145 @@ using System.Collections.Generic;
 namespace AlgorithmsDataStructures
 {
     /// <summary>
-    /// Двунаправленный связанный список
+    /// Динамические массивы
     /// </summary>
-    public class Node
+    
+    public class DynArray<T>
     {
-        public int value; //Класс Node является обобщенным, поэтому может хранить данные любого типа. Для хранения данных предназначено свойство value.
-        public Node next, prev; //Для ссылки на следующий узел определено свойство Next.
-        public Node(int _value)
-        {
-            value = _value;
-            next = null;
-            prev = null;
-        }
-    }
-    public class LinkedList2 //2хсвязный список
-    {
-        public Node head; // головной/первый элемент
-        public Node tail; // последний/хвостовой элемент
-        public Node prev;
+        /// <summary>
+        /// Поле-указатель на блок памяти нужной ёмкости
+        /// </summary>
+        static public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
+        /// <summary>
+        /// Поле - текущее количество элементов в массиве
+        /// </summary>
+        public int count;
+        /// <summary>
+        /// Поле - текущая ёмкость буфера (исходно 16 единиц)
+        /// </summary>
+        public int capacity;
+        //private T[] array2;
 
-        public LinkedList2() //конструктор класса, инициализируем 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        public DynArray()
         {
-            head = null; //поле head - указатель на узел-голову списка 
-            tail = null; //поле tail -- это указатель на завершающий узел.
-        }
-
-        public void AddInTail(Node _item) //доабвление нового узла в конец списка
-        {
-            if (head == null)
-            {
-                head = _item;
-                head.next = null;
-                head.prev = null;
-            }
-            else
-            {
-                tail.next = _item;
-                _item.prev = tail;
-            }
-            tail = _item;
+            count = 0;
+            MakeArray(16);
         }
         /// <summary>
-        /// 1. Метод поиска первого узла по его значению.
+        /// Метод формирования блока памяти заданного размера
         /// </summary>
-        /// <param name="_value"></param>
+        /// <param name="new_capacity"></param>
+        public void MakeArray(int new_capacity) 
+        {
+            Array.Resize(ref array, new_capacity);
+        }
+        /// <summary>
+        /// Метод получения объекта по его индексу: 
+        /// В этот метод встроим проверку корректности индекса в рамках границ, 
+        /// и генерацию соответствующего исключения, если обращение некорректно;
+        /// </summary>
+        /// <param name="index"></param>
         /// <returns></returns>
-        public Node Find(int _value)
+        public T GetItem(int index)
         {
-            Node? node = head;
-            while (node != null)
-            {
-                if (node.value == _value)
-                    return node;
-                node = node.next;
-            }
-            return null;
+            if ((index < 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
+                throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
+            return array[index - 1];
+            //return default(T);
+        }
+        public void Resize(int new_capacity)
+        {
+            //if (count == 0)
+                //throw new ArgumentOutOfRangeException("пустой");
 
+            Array.Resize(ref array, new_capacity);
+
+            MakeArray(new_capacity); //задаем блок памяти
+
+            capacity = new_capacity;
         }
         /// <summary>
-        /// 2. Метод поиска всех узлов по конкретному значению (возвращается список/массив найденных узлов).
+        /// Метод добавления нового элемента в конец массива,
         /// </summary>
-        /// <param name="_value"></param>
-        /// <returns></returns>
-        public List<Node> FindAll(int _value) //поиск всех значений по заданному значению
+        /// <param name="itm"></param>
+        public void Append(T itm)
         {
-            List<Node> nodes = new List<Node>();
-
-            var current = head;
-            while (current != null)
+            if (count == capacity)
             {
-                if (current.value == _value)
-                    nodes.Add(current);
-                current = current.next;
+                int newCapacity = capacity * 2;
+                //if (count == 0)
+                //{
+                //    newCount = 4;
+                //}
+                var newArray = new T[newCapacity];
+                for (int i = 0; i < count; i++)
+                {
+                    newArray[i] = array[i];
+                }
+                array = newArray;
+                capacity *= 2;
             }
-            return nodes;
+            array[count] = itm;
+            count++;
         }
         /// <summary>
-        /// 3. Метод удаления одного узла по его значению
+        /// Метод, который вставляет в i-ю позицию объект item, 
+        /// сдвигая вперёд все последующие элементы. 
+        /// Учтите, что новая длина массива может превысить размер буфера.
+        /// Важно, единственное исключение: для метода Insert() 
+        /// параметр i может принимать значение, равное длине рабочего массива count, 
+        /// в таком случае добавление происходит в его хвост.
+        /// Если индекс i лежит вне допустимых границ, генерируйте исключение.
         /// </summary>
-        /// <param name="_value"></param>
-        /// <returns></returns>
-        public bool Remove(int _value)
+        /// <param name="itm"></param>
+        /// <param name="index"></param>
+        public void Insert(T itm, int index)
         {
-            // здесь будет ваш код удаления одного узла по заданному значению
-            Node current = head;
-            Node previous = null;
+            if (count == capacity)
+                Resize(2 * capacity);
 
-            // поиск удаляемого узла
-            while (current != null)
+            if ((index < 0 || index >= count) || count == 0)
+                throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
+
+            if (count == array.Length)
             {
-                if (current.value == _value)
-                {
-                    break;
-                }
-                previous = current;
-                current = current.next;
-            }
-            if (current != null)
-            {
-                //узел первый
-                if (current == head)
-                {
-                    //узел первый и последний
-                    if (current.next == null)
-                    {
-                        tail = current.next;
-                        head = current.next;
-                        return true;
-                    }
-                    head = current.next;
-                    head.prev = previous;
-                }
-
-                //узел не последний
-                else if (current.next != null)
-                {
-                    previous.next = current.next;
-                    current.next.prev = previous;
-                }
-                else
-                {
-                    // если последний, переустанавливаем tail
-                    tail = previous;
-                    previous.next = current.next;
-                }
-
-                //count--;
-                return true;
-            }
-            return false;
-        }
-        /// <summary>
-        /// 4. Метод удаления всех узлов по конкретному значению.
-        /// </summary>
-        /// <param name="_value"></param>
-        public void RemoveAll(int _value)
-        {
-            Node current = head, previous = null;
-
-            //delete occurrences head
-            while (current != null && current.value == _value)
-            {
-                //первый узел
-                if (current.prev == null)
-                {
-                    //последний узел
-                    if (current.next == null)
-                    {
-                        head = current.next;
-                        tail = head;
-                        current = head;
-                        break;
-                    }
-                    else
-                    {
-                        current.next.prev = head.prev;
-                        head = current.next;
-                        current = head;
-                    }
-                }
-                //предпоследний узел
-                if (current != null && current.next == null)
-                {
-                    tail = previous;
-                    if (previous != null)
-                        previous.next = current.next;
-                    //tail = current.next;
-                }
-                if (current == null)
-                    tail = previous;
-            }
-
-            // Delete occurrences other than head
-            while (current != null)
-            {
-                // Search for the key to be deleted,
-                // keep track of the previous node
-                // as we need to change 'prev->next'
-                while (current != null && current.value != _value)
-                {
-                    previous = current;
-                    current = current.next;
-                }
-
-                // If key was not present in linked list
-                if (current == null)
-                    return;
-
-                // Unlink the node from linked list
-                previous.next = current.next;
-
-                // Update current for next iteration of outer loop
-                current = previous.next;
-                if (current != null)
-                    current.prev = previous;
-                if (current == null && previous.next == null)
-                    tail = previous;
-            }
-            //tail = head;
-        }
-        /// <summary>
-        /// 5. Метод вставки узла после заданного узла
-        /// 6. Метод вставки узла самым первым элементом (как вариант предыдущего пункта, например)
-        /// </summary>
-        /// <param name="_nodeAfter"></param>
-        /// <param name="_nodeToInsert"></param>
-        public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
-        {
-            Node current = head;
-
-            if (_nodeToInsert == null)
+                //array[count++] = itm; 
+                Append(itm);
                 return;
-
-            // если _nodeAfter = null , 
-            // добавьте новый элемент первым в списке 
-
-            if (_nodeAfter is null)
-            {
-                if (head == null)
-                {
-                    head = _nodeToInsert;
-                    tail = head;
-                }
-                else
-                {
-                    Node node = new Node(_nodeToInsert.value);
-                    node.next = head;
-                    head = node;
-                }
             }
-            else
-            {
-                while (current != null)
-                {
-                    if (current == _nodeAfter)
-                    {
-                        Node node = new Node(_nodeToInsert.value);
-                        if (current.next == null)
-                        {
-                            tail = node;
-                            tail.prev = current;
-                        }
-                        else
-                            node.next = current.next;
-                        current.next = node;
-                        node = null;
-                        break;
-                    }
-                    current = current.next;
-                }
-            }
+            GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
+            // сдвигаем все элементы вправо до нужного индекса
+            for (int i = count - 1; i >= index; i--)
+                array[i + 1] = array[i];
+            array[index] = itm;
+            count++;
         }
         /// <summary>
-        /// 7. Метод очистки всего содержимого (создание пустого списка).
+        /// Метод, который удаляет объект из i-й позиции, 
+        /// при необходимости выполняя сжатие буфера.
+        /// Если индекс i лежит вне допустимых границ, генерируйте исключение.
         /// </summary>
-        public void Clear()
+        /// <param name="index"></param>
+        public void Remove(int index)
         {
-            // здесь будет ваш код очистки всего списка
-            head = null;
-            tail = head;
-        }
-
-        public int Count()
-        {
-            // здесь будет ваш код подсчёта количества элементов в списке
-            Node current = head;
-            int count = 0;
-
-            while (current != null)
+            if ((index < 0 || index > count) || count == 0)
+                throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
+			
+			///смещает элементы, находящиеся правее переданного индекса, влево на 1 индекс, а затем удаляет последний элемент. Кидается ошибка, если массив пустой или же индекс находится за пределами массива:
+            for(int i = index + 1; i < count; i++)
+                array[i - 1] = array[i];
+            count--;
+            int res;
+            if (count != 0)
             {
-                count++;
-                current = current.next;
+                if ((int) capacity / count < (int) capacity / 2)
+                    _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
             }
-            return count;
-        }
-
-
-        public List<int> Equal_Lenght(LinkedList<int> nodes1, LinkedList<int> nodes2)
-        {
-            var current1 = nodes1.First;
-            var current2 = nodes2.First;
-            List<int> result = new List<int>();
-
-            if (nodes1.Count == 0)
-                return result;
-            if (nodes2.Count == 0)
-                return result;
-
-            if (nodes1.Count() == nodes2.Count())
-            {
-                while (current1 != null && current2 != null)
-                {
-                    int a, b;
-                    a = current1.Value;
-                    b = current2.Value;
-                    result.Add(a + b);
-                    current1 = current1.Next;
-                    current2 = current2.Next;
-                }
-            }
-            return result;
+            array[count] = default(T);
         }
     }
 }
+

@@ -53,10 +53,23 @@ namespace AlgorithmsDataStructures
 
     public class DynArray<T>
     {
-        public T[] array;
+        /// <summary>
+        /// Поле-указатель на блок памяти нужной ёмкости
+        /// </summary>
+        static public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
+        /// <summary>
+        /// Поле - текущее количество элементов в массиве
+        /// </summary>
         public int count;
+        /// <summary>
+        /// Поле - текущая ёмкость буфера (исходно 16 единиц)
+        /// </summary>
         public int capacity;
+        //private T[] array2;
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public DynArray()
         {
             count = 0;
@@ -64,12 +77,13 @@ namespace AlgorithmsDataStructures
         }
         /// <summary>
         /// Метод формирования блока памяти заданного размера
-        /// Стандартный рекомендуемый здесь приём -- array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы. Когда мы расширяем или уменьшаем размер array, мы просто пересоздаём его с новым размером, и затем копируем объекты (по сути, указатели) в массив нового размера. Это копирование выполняется очень быстро и практически не требует ресурсов. Более того, во многих языках имеется стандартная операция копирования массивов.
         /// </summary>
         /// <param name="new_capacity"></param>
-        public void MakeArray(int new_capacity)
+        public void MakeArray(int new_capacity) //Стандартный рекомендуемый здесь приём -- array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы.Когда мы расширяем или уменьшаем размер array, мы просто пересоздаём его с новым размером, и затем копируем объекты(по сути, указатели) в массив нового размера.Это копирование выполняется очень быстро и практически не требует ресурсов.Более того, во многих языках имеется стандартная операция копирования массивов.
         {
-            // ваш код
+            Array.Resize(ref array, new_capacity);
+            //array = new T[new_capacity]; //инициализируем массив
+            //count = new_capacity; //устанавливаем текущее кол-во символов массива (текущая длина массива)
         }
         /// <summary>
         /// Метод получения объекта по его индексу: 
@@ -80,8 +94,21 @@ namespace AlgorithmsDataStructures
         /// <returns></returns>
         public T GetItem(int index)
         {
-            // ваш код
-            return default(T);
+            if ((index < 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
+                throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
+            return array[index - 1];
+            //return default(T);
+        }
+        public void Resize(int new_capacity)
+        {
+            //if (count == 0)
+                //throw new ArgumentOutOfRangeException("пустой");
+
+            Array.Resize(ref array, new_capacity);
+
+            MakeArray(new_capacity); //задаем блок памяти
+
+            capacity = new_capacity;
         }
         /// <summary>
         /// Метод добавления нового элемента в конец массива,
@@ -89,7 +116,30 @@ namespace AlgorithmsDataStructures
         /// <param name="itm"></param>
         public void Append(T itm)
         {
-            // ваш код
+            //int oldcount = count;
+            ////длина массива превышает размер буфера
+            ////Увеличение буфера выполняем, когда он весь полностью заполнен, и выполняется попытка добавления.
+            //if (count >= capacity)
+            //    MakeArray(2 * capacity); //увеличиваем размер буфера в два раза
+            //array[oldcount] = itm;
+            //count++;
+            if (count == capacity)
+            {
+                int newCapacity = capacity * 2;
+                //if (count == 0)
+                //{
+                //    newCount = 4;
+                //}
+                var newArray = new T[newCapacity];
+                for (int i = 0; i < count; i++)
+                {
+                    newArray[i] = array[i];
+                }
+                array = newArray;
+                capacity *= 2;
+            }
+            array[count] = itm;
+            count++;
         }
         /// <summary>
         /// Метод, который вставляет в i-ю позицию объект item, 
@@ -104,7 +154,24 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Insert(T itm, int index)
         {
-            // ваш код
+            if (count == capacity)
+                Resize(2 * capacity);
+
+            if ((index < 0 || index >= count) || count == 0)
+                throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
+
+            if (count == array.Length)
+            {
+                //array[count++] = itm; 
+                Append(itm);
+                return;
+            }
+            GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
+            // сдвигаем все элементы вправо до нужного индекса
+            for (int i = count - 1; i >= index; i--)
+                array[i + 1] = array[i];
+            array[index] = itm;
+            count++;
         }
         /// <summary>
         /// Метод, который удаляет объект из i-й позиции, 
@@ -114,58 +181,39 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Remove(int index)
         {
-            // ваш код
-        }
-        static void Main()
-        {
-            //1-я часть
-            //Node n1 = new(12);
-            //Node n2 = new(55);
-            //n1.next = n2;
+            if ((index < 0 || index > count) || count == 0)
+                throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
-            //LinkedList s_list = new LinkedList();
-            //s_list.AddInTail(n1);
-            //s_list.AddInTail(n2);
-            //s_list.AddInTail(new Node(128));
-
-            //Node my_node = s_list.Find(55);
-            //Console.WriteLine(my_node.value);
-            //Console.ReadKey();
-
-            //var list1 = new List<int> {12, 55, 56 };
-            //LinkedList<int> nodes1 = new LinkedList<int>(list1);
-            //var list2 = new List<int> { 11, 0, 2 };
-            //LinkedList<int> nodes2 = new LinkedList<int>(list1);
-            //List<int> result = new List<int>();
-
-            //foreach (int item in result)
+            for(int i = index + 1; i < count; i++)
+                array[i - 1] = array[i];
+            count--;
+            int res;
+            if (count != 0)
+            {
+                if ((int) capacity / count < (int) capacity / 2)
+                    _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
+            }
+            array[count] = default(T);
+            ///смещает элементы, находящиеся правее переданного индекса, влево на 11 индекс, а затем удаляет последний элемент. Кидается ошибка, если массив пустой или же индекс находится за пределами массива:
+            //MakeArray(capacity);
+            ////count = 0;
+            //for (int j = 0; j < array.Length; j++)
             //{
-            //    Console.Write(" "+ InsertAfter(list1., nodes2));
-            //}            
-            //Console.ReadKey();
-            //-------------------
-            //Node n1 = new(12);
-            //Node n2 = new(55);
-            //n1.next = n2;
-
-            //LinkedList s_list2 = new LinkedList();
-            //s_list2.AddInTail(n1);
-            //s_list2.AddInTail(n2);
-            //s_list2.AddInTail(new Node(128));
-            //s_list2.AddInTail(new Node(55));
-
-            //List<int> print_nodes = new List<int>();
-            //s_list2.PrintAllNodes();
-
-            //foreach (var item in s_list2.PrintAllNodes())
-            //{
-            //    Console.Write(" " + item);
+            //    if (j + count == array.Length) //фиксируем выход диапазона за длинну массива
+            //        array[j] = default(T);
+            //    if (j != index)
+            //        array = default(T[]);
+            //    if (j == index)
+            //    {
+            //        count--;
+            //        array[array.Length - 1] = default(T);
+            //    }
             //}
-            //Console.WriteLine(print_nodes.Count());
-            //s_list2.RemoveAll(n2.value);
-            //s_list2.PrintAllNodes();
-            //Console.ReadKey();
         }
+    }
+    class CMain
+    {
+        public static void Main() { }
     }
 }
 
