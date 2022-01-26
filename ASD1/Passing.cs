@@ -12,7 +12,7 @@ namespace AlgorithmsDataStructures
         /// <summary>
         /// Поле-указатель на блок памяти нужной ёмкости
         /// </summary>
-        static public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
+        public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
         /// <summary>
         /// Поле - текущее количество элементов в массиве
         /// </summary>
@@ -52,17 +52,6 @@ namespace AlgorithmsDataStructures
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
             return array[index - 1];
             //return default(T);
-        }
-        public void Resize(int new_capacity)
-        {
-            //if (count == 0)
-                //throw new ArgumentOutOfRangeException("пустой");
-
-            Array.Resize(ref array, new_capacity);
-
-            MakeArray(new_capacity); //задаем блок памяти
-
-            capacity = new_capacity;
         }
         /// <summary>
         /// Метод добавления нового элемента в конец массива,
@@ -131,7 +120,7 @@ namespace AlgorithmsDataStructures
             if ((index < 0 || index > count) || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 			
-			///смещает элементы, находящиеся правее переданного индекса, влево на 1 индекс, а затем удаляет последний элемент. Кидается ошибка, если массив пустой или же индекс находится за пределами массива:
+	    ///смещает элементы, находящиеся правее переданного индекса, влево на 1 индекс, а затем удаляет последний элемент. Кидается ошибка, если массив пустой или же индекс находится за пределами массива:
             for(int i = index + 1; i < count; i++)
                 array[i - 1] = array[i];
             count--;
@@ -139,9 +128,18 @@ namespace AlgorithmsDataStructures
             if (count != 0)
             {
                 if ((int) capacity / count < (int) capacity / 2)
-                    _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
+                    capacity = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
             }
             array[count] = default(T);
+        }
+	
+	public void Resize(int new_capacity)
+        {
+            Array.Resize(ref array, new_capacity);
+
+            MakeArray(new_capacity); //задаем блок памяти
+
+            capacity = new_capacity;
         }
     }
 }
