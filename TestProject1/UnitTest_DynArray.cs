@@ -11,11 +11,42 @@ namespace TestProject
     [TestClass]
     public class AlgorithmsDataStructures
     {
+        [TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestCategory("Некорректное создание пустого динамического массива (count != 0 или capacity != 16)")]
+        public void DynArray_incorrect_new_array()
+        {
+            try
+            {
+                DynArray<int> dynArray = new()
+                {
+                    count = 1,
+                    capacity = 2
+                };
+                Assert.AreEqual(dynArray.count, 1);
+                Assert.AreEqual(dynArray.capacity, 2);
+                Assert.AreEqual(dynArray.GetItem(1), 0);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"\" PASSED");
+            }
+        }
         /// <summary>
         /// Вставка элемента, когда в итоге размер буфера не превышен (проверьте также размер буфера);
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
         [TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         [TestCategory("проверка работы метода Insert()")]
         public void DynArray_Insert_buffer_size_not_exceeded()
         {

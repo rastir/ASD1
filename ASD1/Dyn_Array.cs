@@ -56,7 +56,7 @@ namespace AlgorithmsDataStructures
         /// <summary>
         /// Поле-указатель на блок памяти нужной ёмкости
         /// </summary>
-        static public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
+        public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
         /// <summary>
         /// Поле - текущее количество элементов в массиве
         /// </summary>
@@ -73,6 +73,7 @@ namespace AlgorithmsDataStructures
         public DynArray()
         {
             count = 0;
+            array = new T[count];
             MakeArray(16);
         }
         /// <summary>
@@ -81,7 +82,11 @@ namespace AlgorithmsDataStructures
         /// <param name="new_capacity"></param>
         public void MakeArray(int new_capacity) //Стандартный рекомендуемый здесь приём -- array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы.Когда мы расширяем или уменьшаем размер array, мы просто пересоздаём его с новым размером, и затем копируем объекты(по сути, указатели) в массив нового размера.Это копирование выполняется очень быстро и практически не требует ресурсов.Более того, во многих языках имеется стандартная операция копирования массивов.
         {
+            if (new_capacity < count)
+                throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
+
             Array.Resize(ref array, new_capacity);
+            capacity = new_capacity;
             //array = new T[new_capacity]; //инициализируем массив
             //count = new_capacity; //устанавливаем текущее кол-во символов массива (текущая длина массива)
         }
@@ -105,11 +110,13 @@ namespace AlgorithmsDataStructures
         /// <param name="itm"></param>
         public void Append(T itm)
         {
-            //int oldcount = count;
             ////длина массива превышает размер буфера
             ////Увеличение буфера выполняем, когда он весь полностью заполнен, и выполняется попытка добавления.
-            //if (count >= capacity)
-            //    MakeArray(2 * capacity); //увеличиваем размер буфера в два раза
+            if (count >= capacity)
+            {
+                while (count > capacity) //не верим тому кто формирует массив и передает заведомо некорректные сведения
+                    MakeArray(2 * capacity); //увеличиваем размер буфера в два раза
+            }
             //array[oldcount] = itm;
             //count++;
             if (count == capacity)
@@ -173,13 +180,13 @@ namespace AlgorithmsDataStructures
             if ((index < 0 || index > count) || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
-            for(int i = index + 1; i < count; i++)
+            for (int i = index + 1; i < count; i++)
                 array[i - 1] = array[i];
             count--;
-            int res;
+
             if (count != 0)
             {
-                if ((int) capacity / count < (int) capacity / 2)
+                if ((int)capacity / count < (int)capacity / 2)
                     _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
             }
             array[count] = default(T);
