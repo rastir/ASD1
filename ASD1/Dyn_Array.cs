@@ -95,9 +95,9 @@ namespace AlgorithmsDataStructures
         /// <returns></returns>
         public T GetItem(int index)
         {
-            if ((index < 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
+            if ((index < 0 || index > count - 1) || count == 0) //проверка корректности индекса в рамках границ
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
-            return array[index - 1];
+            return array[index];
         }
         /// <summary>
         /// Метод добавления нового элемента в конец массива,
@@ -143,20 +143,20 @@ namespace AlgorithmsDataStructures
             if (count == capacity)
                 Resize(2 * capacity);
 
-            if (index < 0 || index > count)
+            if (index < 0 || (index > count - 1 && count != 0))
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
-            if (index == count)
+            if (index == count - 1 || (index == 0 && count == 0))
             {
-                Array.Resize(ref array, count + 1);
+                Array.Resize(ref array, capacity);
                 Append(itm);
                 return;
             }
             GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
             // сдвигаем все элементы вправо до нужного индекса
-            for (int i = count - 1; i >= index - 1; i--)
+            for (int i = count - 1; i >= index; i--)
                 array[i + 1] = array[i];
-            array[index] = itm;
+            array[index + 1] = itm;
             count++;
         }
         /// <summary>
@@ -167,7 +167,7 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Remove(int index)
         {
-            if ((index < 0 || index > count) || count == 0)
+            if ((index < 0 || index > count - 1) || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
             for (int i = index + 1; i < count; i++)
