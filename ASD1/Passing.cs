@@ -8,7 +8,7 @@ namespace AlgorithmsDataStructures
         /// <summary>
         /// Поле-указатель на блок памяти нужной ёмкости
         /// </summary>
-        public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
+        public T[] array; 
         /// <summary>
         /// Поле - текущее количество элементов в массиве
         /// </summary>
@@ -30,7 +30,7 @@ namespace AlgorithmsDataStructures
         /// Метод формирования блока памяти заданного размера
         /// </summary>
         /// <param name="new_capacity"></param>
-        public void MakeArray(int new_capacity) //Стандартный рекомендуемый здесь приём -- array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы.Когда мы расширяем или уменьшаем размер array, мы просто пересоздаём его с новым размером, и затем копируем объекты(по сути, указатели) в массив нового размера.Это копирование выполняется очень быстро и практически не требует ресурсов.Более того, во многих языках имеется стандартная операция копирования массивов.
+        public void MakeArray(int new_capacity) 
         {
             if (new_capacity < count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
@@ -95,13 +95,12 @@ namespace AlgorithmsDataStructures
             if (count == capacity)
                 Resize(2 * capacity);
 
-            if (index <= 0 || index > count)
+            if (index < 0 || index > count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
             if (index == count)
             {
                 Array.Resize(ref array, count + 1);
-                //array[count++] = itm; 
                 Append(itm);
                 return;
             }
@@ -130,7 +129,7 @@ namespace AlgorithmsDataStructures
             if (count != 0)
             {
                 if ((int)capacity / count < (int)capacity / 2)
-                    capacity = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
+                    _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
             }
             array[count] = default(T);
         }

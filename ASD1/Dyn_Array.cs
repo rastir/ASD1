@@ -65,8 +65,6 @@ namespace AlgorithmsDataStructures
         /// Поле - текущая ёмкость буфера (исходно 16 единиц)
         /// </summary>
         public int capacity;
-        //private T[] array2;
-
         /// <summary>
         /// Конструктор класса
         /// </summary>
@@ -87,8 +85,6 @@ namespace AlgorithmsDataStructures
 
             Array.Resize(ref array, new_capacity);
             capacity = new_capacity;
-            //array = new T[new_capacity]; //инициализируем массив
-            //count = new_capacity; //устанавливаем текущее кол-во символов массива (текущая длина массива)
         }
         /// <summary>
         /// Метод получения объекта по его индексу: 
@@ -102,7 +98,6 @@ namespace AlgorithmsDataStructures
             if ((index < 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
             return array[index - 1];
-            //return default(T);
         }
         /// <summary>
         /// Метод добавления нового элемента в конец массива,
@@ -117,8 +112,7 @@ namespace AlgorithmsDataStructures
                 while (count > capacity) //не верим тому кто формирует массив и передает заведомо некорректные сведения
                     MakeArray(2 * capacity); //увеличиваем размер буфера в два раза
             }
-            //array[oldcount] = itm;
-            //count++;
+
             if (count == capacity)
             {
                 int newCapacity = capacity * 2;
@@ -149,13 +143,12 @@ namespace AlgorithmsDataStructures
             if (count == capacity)
                 Resize(2 * capacity);
 
-            if (index <= 0 || index > count)
+            if (index < 0 || index > count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
             if (index == count)
             {
                 Array.Resize(ref array, count + 1);
-                //array[count++] = itm; 
                 Append(itm);
                 return;
             }
@@ -187,27 +180,9 @@ namespace AlgorithmsDataStructures
                     _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
             }
             array[count] = default(T);
-            ///смещает элементы, находящиеся правее переданного индекса, влево на 11 индекс, а затем удаляет последний элемент. Кидается ошибка, если массив пустой или же индекс находится за пределами массива:
-            //MakeArray(capacity);
-            ////count = 0;
-            //for (int j = 0; j < array.Length; j++)
-            //{
-            //    if (j + count == array.Length) //фиксируем выход диапазона за длинну массива
-            //        array[j] = default(T);
-            //    if (j != index)
-            //        array = default(T[]);
-            //    if (j == index)
-            //    {
-            //        count--;
-            //        array[array.Length - 1] = default(T);
-            //    }
-            //}
         }
         public void Resize(int new_capacity)
         {
-            //if (count == 0)
-            //throw new ArgumentOutOfRangeException("пустой");
-
             Array.Resize(ref array, new_capacity);
 
             MakeArray(new_capacity); //задаем блок памяти
