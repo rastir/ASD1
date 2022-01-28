@@ -5,21 +5,32 @@ namespace AlgorithmsDataStructures
 {
     public class DynArray<T>
     {
-
+        /// <summary>
+        /// Поле-указатель на блок памяти нужной ёмкости
+        /// </summary>
         public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
-
+        /// <summary>
+        /// Поле - текущее количество элементов в массиве
+        /// </summary>
         public int count;
-
+        /// <summary>
+        /// Поле - текущая ёмкость буфера (исходно 16 единиц)
+        /// </summary>
         public int capacity;
-
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public DynArray()
         {
             count = 0;
             array = new T[count];
             MakeArray(16);
         }
-
-        public void MakeArray(int new_capacity) 
+        /// <summary>
+        /// Метод формирования блока памяти заданного размера
+        /// </summary>
+        /// <param name="new_capacity"></param>
+        public void MakeArray(int new_capacity) //Стандартный рекомендуемый здесь приём -- array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы.Когда мы расширяем или уменьшаем размер array, мы просто пересоздаём его с новым размером, и затем копируем объекты(по сути, указатели) в массив нового размера.Это копирование выполняется очень быстро и практически не требует ресурсов.Более того, во многих языках имеется стандартная операция копирования массивов.
         {
             if (new_capacity < count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
@@ -27,14 +38,23 @@ namespace AlgorithmsDataStructures
             Array.Resize(ref array, new_capacity);
             capacity = new_capacity;
         }
-
+        /// <summary>
+        /// Метод получения объекта по его индексу: 
+        /// В этот метод встроим проверку корректности индекса в рамках границ, 
+        /// и генерацию соответствующего исключения, если обращение некорректно;
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public T GetItem(int index)
         {
             if ((index < 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
             return array[index - 1];
         }
-
+        /// <summary>
+        /// Метод добавления нового элемента в конец массива,
+        /// </summary>
+        /// <param name="itm"></param>
         public void Append(T itm)
         {
             ////длина массива превышает размер буфера
@@ -48,7 +68,6 @@ namespace AlgorithmsDataStructures
             if (count == capacity)
             {
                 int newCapacity = capacity * 2;
-
                 var newArray = new T[newCapacity];
                 for (int i = 0; i < count; i++)
                 {
@@ -60,28 +79,45 @@ namespace AlgorithmsDataStructures
             array[count] = itm;
             count++;
         }
-
+        /// <summary>
+        /// Метод, который вставляет в i-ю позицию объект item, 
+        /// сдвигая вперёд все последующие элементы. 
+        /// Учтите, что новая длина массива может превысить размер буфера.
+        /// Важно, единственное исключение: для метода Insert() 
+        /// параметр i может принимать значение, равное длине рабочего массива count, 
+        /// в таком случае добавление происходит в его хвост.
+        /// Если индекс i лежит вне допустимых границ, генерируйте исключение.
+        /// </summary>
+        /// <param name="itm"></param>
+        /// <param name="index"></param>
         public void Insert(T itm, int index)
         {
             if (count == capacity)
                 Resize(2 * capacity);
 
-            if ((index < 0 || index >= count) || count == 0)
+            if (index <= 0 || index > count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
-            if (count == array.Length)
+            if (index == count)
             {
+                Array.Resize(ref array, count + 1);
+                //array[count++] = itm; 
                 Append(itm);
                 return;
             }
             GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
             // сдвигаем все элементы вправо до нужного индекса
-            for (int i = count - 1; i >= index; i--)
+            for (int i = count - 1; i >= index - 1; i--)
                 array[i + 1] = array[i];
             array[index] = itm;
             count++;
         }
-
+        /// <summary>
+        /// Метод, который удаляет объект из i-й позиции, 
+        /// при необходимости выполняя сжатие буфера.
+        /// Если индекс i лежит вне допустимых границ, генерируйте исключение.
+        /// </summary>
+        /// <param name="index"></param>
         public void Remove(int index)
         {
             if ((index < 0 || index > count) || count == 0)
@@ -98,7 +134,6 @@ namespace AlgorithmsDataStructures
             }
             array[count] = default(T);
         }
-
         public void Resize(int new_capacity)
         {
             Array.Resize(ref array, new_capacity);

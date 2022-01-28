@@ -122,10 +122,6 @@ namespace AlgorithmsDataStructures
             if (count == capacity)
             {
                 int newCapacity = capacity * 2;
-                //if (count == 0)
-                //{
-                //    newCount = 4;
-                //}
                 var newArray = new T[newCapacity];
                 for (int i = 0; i < count; i++)
                 {
@@ -153,18 +149,19 @@ namespace AlgorithmsDataStructures
             if (count == capacity)
                 Resize(2 * capacity);
 
-            if ((index < 0 || index >= count) || count == 0)
+            if (index <= 0 || index > count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
-            if (count == array.Length)
+            if (index == count)
             {
+                Array.Resize(ref array, count + 1);
                 //array[count++] = itm; 
                 Append(itm);
                 return;
             }
             GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
             // сдвигаем все элементы вправо до нужного индекса
-            for (int i = count - 1; i >= index; i--)
+            for (int i = count - 1; i >= index - 1; i--)
                 array[i + 1] = array[i];
             array[index] = itm;
             count++;
