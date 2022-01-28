@@ -130,7 +130,7 @@ namespace AlgorithmsDataStructures
             if (count != 0)
             {
                 if ((int)capacity / count < (int)capacity / 2)
-                    _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
+                    capacity = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
             }
             array[count] = default(T);
         }
