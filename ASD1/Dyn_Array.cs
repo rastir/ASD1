@@ -145,17 +145,18 @@ namespace AlgorithmsDataStructures
             if (count == capacity)
                 MakeArray(2 * capacity); //задаем блок памяти
 
-            if (index != 0)
+            if (index == count || index == 0)
+                Append(itm);
+                //array[index] = itm;
+            else //if (index != 0)
             {
                 GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
                                 // сдвигаем все элементы вправо до нужного индекса
                 for (int i = count - 1; i >= index - 1; i--)
                     array[i + 1] = array[i];
                 array[index - 1] = itm;
+                count++;
             }
-            else
-                array[index] = itm;
-            count++;
         }
         /// <summary>
         /// Метод, который удаляет объект из i-й позиции, 
