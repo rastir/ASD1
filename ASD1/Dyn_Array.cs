@@ -149,7 +149,7 @@ namespace AlgorithmsDataStructures
             if (count == capacity)
                 Resize(2 * capacity);
 
-            if (index <= 0 || (index > count && !(count == 0 && index == 1)))
+            if (index < 0 || (index > count && !(count == 0 && index == 0)) || (index == 0 && count != 0))
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
             if (index == count || (count == 0 && index == 1))
@@ -158,11 +158,16 @@ namespace AlgorithmsDataStructures
                 Append(itm);
                 return;
             }
-            GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
-            // сдвигаем все элементы вправо до нужного индекса
-            for (int i = count - 1; i >= index - 1; i--)
-                array[i + 1] = array[i];
-            array[index - 1] = itm;
+            if (index != 0)
+            {
+                GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
+                                // сдвигаем все элементы вправо до нужного индекса
+                for (int i = count - 1; i >= index - 1; i--)
+                    array[i + 1] = array[i];
+                array[index - 1] = itm;
+            }
+            else
+                array[index] = itm;
             count++;
         }
         /// <summary>
