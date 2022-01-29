@@ -3,12 +3,15 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
 {
+    /// <summary>
+    /// Динамические массивы
+    /// </summary>
     public class DynArray<T>
     {
         /// <summary>
         /// Поле-указатель на блок памяти нужной ёмкости
         /// </summary>
-        public T[] array; 
+        public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
         /// <summary>
         /// Поле - текущее количество элементов в массиве
         /// </summary>
@@ -30,7 +33,7 @@ namespace AlgorithmsDataStructures
         /// Метод формирования блока памяти заданного размера
         /// </summary>
         /// <param name="new_capacity"></param>
-        public void MakeArray(int new_capacity) 
+        public void MakeArray(int new_capacity)
         {
             if (new_capacity < count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
@@ -47,7 +50,7 @@ namespace AlgorithmsDataStructures
         /// <returns></returns>
         public T GetItem(int index)
         {
-            if ((index < 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
+            if ((index <= 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
             return array[index - 1];
         }
@@ -92,15 +95,17 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Insert(T itm, int index)
         {
+            if (array.Length != capacity)
+                Array.Resize(ref array, capacity);
+
             if (count == capacity)
                 Resize(2 * capacity);
 
-            if (index < 0 || index > count)
+            if (index <= 0 || (index > count && !(count == 0 && index == 1)))
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
-            if (index == count)
+            if (index == count || (count == 0 && index == 1))
             {
-                Array.Resize(ref array, count + 1);
                 Append(itm);
                 return;
             }
@@ -108,7 +113,7 @@ namespace AlgorithmsDataStructures
             // сдвигаем все элементы вправо до нужного индекса
             for (int i = count - 1; i >= index - 1; i--)
                 array[i + 1] = array[i];
-            array[index] = itm;
+            array[index - 1] = itm;
             count++;
         }
         /// <summary>
@@ -121,8 +126,9 @@ namespace AlgorithmsDataStructures
         {
             if ((index < 0 || index > count) || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
-
-            for (int i = index + 1; i < count; i++)
+            
+            //сдвигаем
+            for (int i = index; i < count; i++)
                 array[i - 1] = array[i];
             count--;
 

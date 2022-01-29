@@ -72,6 +72,9 @@ namespace AlgorithmsDataStructures
         {
             count = 0;
             array = new T[count];
+            //if (capacity == 0)
+            //    MakeArray(capacity);
+            //else
             MakeArray(16);
         }
         /// <summary>
@@ -95,7 +98,7 @@ namespace AlgorithmsDataStructures
         /// <returns></returns>
         public T GetItem(int index)
         {
-            if ((index < 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
+            if ((index <= 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
             return array[index - 1];
         }
@@ -140,15 +143,18 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Insert(T itm, int index)
         {
+            if (array.Length != capacity)
+                Array.Resize(ref array, capacity);
+
             if (count == capacity)
                 Resize(2 * capacity);
 
-            if (index < 0 || index > count)
+            if (index <= 0 || (index > count && !(count == 0 && index == 1)))
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
-            if (index == count)
+            if (index == count || (count == 0 && index == 1))
             {
-                Array.Resize(ref array, count + 1);
+                //Array.Resize(ref array, count + 1);
                 Append(itm);
                 return;
             }
@@ -156,7 +162,7 @@ namespace AlgorithmsDataStructures
             // сдвигаем все элементы вправо до нужного индекса
             for (int i = count - 1; i >= index - 1; i--)
                 array[i + 1] = array[i];
-            array[index] = itm;
+            array[index - 1] = itm;
             count++;
         }
         /// <summary>
@@ -169,8 +175,9 @@ namespace AlgorithmsDataStructures
         {
             if ((index < 0 || index > count) || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
-
-            for (int i = index + 1; i < count; i++)
+            
+            //сдвигаем
+            for (int i = index; i < count; i++)
                 array[i - 1] = array[i];
             count--;
 
