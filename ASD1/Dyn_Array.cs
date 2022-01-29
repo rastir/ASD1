@@ -168,20 +168,23 @@ namespace AlgorithmsDataStructures
         {
             if (index == 0)
                 return;
-            if ((index < 0 || index > count) || count == 0)
+            if (index < 0 || index > count || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
             
             //сдвигаем
             for (int i = index; i < count; i++)
                 array[i - 1] = array[i];
+            
+            //удаляем
             count--;
+            array[count] = default(T);
 
+            //сокращаем буфер
             if (count != 0)
             {
-                if ((int)capacity / count < (int)capacity / 2)
-                    _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
+                if ((int)count < (int)capacity / 2)//Сокращение буфера выполняем, когда его заполненность после операции удаления станет строго меньше, чем заданный процент (50%) заполнения.
+                    capacity = capacity / 1.5 < 16 ? capacity = 16 : capacity = (int)(capacity / (decimal)1.5);
             }
-            array[count] = default(T);
         }
     }
     class CMain

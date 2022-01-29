@@ -689,5 +689,45 @@ namespace TestProject
                 Console.WriteLine("TEST \"\" PASSED");
             }
         }
+        [TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestCategory("Некорректное удаление без изменения размера буфера")]
+        public void DynArray_Remove_not_change_buffer_size()
+        {
+            try
+            {
+                DynArray<int> dynArray = new()
+                {
+                    count = 0
+                };
+                dynArray.MakeArray(64);
+                for (int i = 1; i <= 32; i++)
+                {
+                    dynArray.Append(i);
+                    //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Append(i));
+                }
+                dynArray.Remove(32);
+                //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
+                //Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
+                Assert.AreEqual(dynArray.count, 31);
+                Assert.AreEqual(dynArray.capacity, 42);
+                Assert.AreEqual(dynArray.GetItem(1), 1);
+                Assert.AreEqual(dynArray.GetItem(31), 31);
+                //Assert.AreEqual(dynArray.GetItem(32), default);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"\" PASSED");
+            }
+        }
     }
 }
