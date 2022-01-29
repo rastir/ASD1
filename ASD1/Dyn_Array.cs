@@ -72,9 +72,6 @@ namespace AlgorithmsDataStructures
         {
             count = 0;
             array = new T[count];
-            //if (capacity == 0)
-            //    MakeArray(capacity);
-            //else
             MakeArray(16);
         }
         /// <summary>
@@ -108,10 +105,7 @@ namespace AlgorithmsDataStructures
         /// <param name="itm"></param>
         public void Append(T itm)
         {
-            if (itm.Equals(0))
-                return;
-            ////длина массива превышает размер буфера
-            ////Увеличение буфера выполняем, когда он весь полностью заполнен, и выполняется попытка добавления.
+            //длина массива превышает размер буфера: увеличение буфера выполняем, когда он весь полностью заполнен, и выполняется попытка добавления.
             if (count >= capacity)
             {
                 while (count > capacity) //не верим тому кто формирует массив и передает заведомо некорректные сведения
@@ -145,21 +139,12 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Insert(T itm, int index)
         {
-            if (array.Length != capacity)
-                Array.Resize(ref array, capacity);
-
-            if (count == capacity)
-                Resize(2 * capacity);
-
             if (index < 0 || (index > count && !(count == 0 && index == 0)) || (index == 0 && count != 0))
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
-            if (index == count || (count == 0 && index == 1))
-            {
-                //Array.Resize(ref array, count + 1);
-                Append(itm);
-                return;
-            }
+            if (count == capacity)
+                MakeArray(2 * capacity); //задаем блок памяти
+
             if (index != 0)
             {
                 GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
@@ -196,14 +181,6 @@ namespace AlgorithmsDataStructures
                     _ = capacity / 1.5 < 16 ? capacity = 16 : (capacity = (int)(capacity / (decimal)1.5));
             }
             array[count] = default(T);
-        }
-        public void Resize(int new_capacity)
-        {
-            Array.Resize(ref array, new_capacity);
-
-            MakeArray(new_capacity); //задаем блок памяти
-
-            capacity = new_capacity;
         }
     }
     class CMain

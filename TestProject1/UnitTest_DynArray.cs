@@ -85,21 +85,20 @@ namespace TestProject
         }
         [TestMethod]
         //[ExpectedException(typeof(ArgumentOutOfRangeException))]
-        [TestCategory("Исключение при вставке в пустой массив")]
+        [TestCategory("Исключение при вставке в пустой массив/Некорректная вставка в пустой массив")]
         public void DynArray_Insert_in_empty_array()
         {
             try
             {
                 DynArray<int> dynArray = new()
                 {
-                    count = 0,
-                    capacity = 32
+                    count = 0
                 };
                 dynArray.Insert(555, 0);
                 //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
                 //Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
                 Assert.AreEqual(dynArray.count, 1);
-                Assert.AreEqual(dynArray.capacity, 32);
+                Assert.AreEqual(dynArray.capacity, 16);
                 Assert.AreEqual(dynArray.GetItem(1), 555);
             }
             catch (IndexOutOfRangeException e)
@@ -125,22 +124,21 @@ namespace TestProject
             {
                 DynArray<int> dynArray = new()
                 {
-                    count = 0,
-                    capacity = 32
+                    count = 0
                 };
                 for (int i = 1; i <= 16; i++)
                 {
                     dynArray.Append(i);
                     //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Append(i));
                 }
-                dynArray.Insert(555, 15);
+                dynArray.Insert(555, 16);
                 //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
                 //Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
                 Assert.AreEqual(dynArray.count, 17);
                 Assert.AreEqual(dynArray.capacity, 32);
                 Assert.AreEqual(dynArray.GetItem(2), 2);
-                Assert.AreEqual(dynArray.GetItem(15), 555);
-                Assert.AreEqual(dynArray.GetItem(16), 15);
+                Assert.AreEqual(dynArray.GetItem(16), 555);
+                Assert.AreEqual(dynArray.GetItem(15), 15);
                 Assert.AreEqual(dynArray.GetItem(17), 16);
             }
             catch (IndexOutOfRangeException e)
@@ -377,8 +375,8 @@ namespace TestProject
                 dynArray.Insert(555, 1);
                 Assert.AreEqual(dynArray.count, 2);
                 Assert.AreEqual(dynArray.capacity, 2);
-                Assert.AreEqual((int)dynArray.GetItem(1), 1);
-                Assert.AreEqual((int)dynArray.GetItem(2), 555);
+                Assert.AreEqual((int)dynArray.GetItem(1), 555);
+                Assert.AreEqual((int)dynArray.GetItem(2), 1);
                 //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
                 //Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
             }
@@ -642,7 +640,7 @@ namespace TestProject
                     //capacity = 32
                 };
 
-                dynArray.Append(0);
+                //dynArray.Append(0);
                 dynArray.Remove(0);
                 //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
                 //Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
