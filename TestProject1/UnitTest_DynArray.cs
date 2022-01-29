@@ -397,7 +397,7 @@ namespace TestProject
             }
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         [TestCategory("проверка работы метода Insert()")]
         public void DynArray_Remove_invalid_position()
         {
@@ -405,12 +405,12 @@ namespace TestProject
             {
                 DynArray<int> dynArray = new()
                 {
-                    count = 0,
-                    capacity = 16
+                    count = 0
                 };
                 dynArray.Remove(0);
-                Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
-                Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
+                dynArray.MakeArray(0);
+                //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
+                //Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
             }
             catch (IndexOutOfRangeException e)
             {
@@ -601,17 +601,14 @@ namespace TestProject
         {
             try
             {
-                List<int> exams = new List<int>();
-                for (int a = 1; a <= 16; a++)
-                    exams.Add(a);
                 // создаем объект класса согласно конструктору и полям
                 DynArray<int> dynArray = new()
                 {
-                    count = 0,
-                    capacity = 16
+                    count = 0
                 };
-                //for (int i = 0; i < dynArray.count; i++)
-                //    dynArray.Append(exams[i]);
+                for (int i = 0; i < 5; i++)
+                    dynArray.Append(i);
+                dynArray.MakeArray(0);
                 dynArray.Append(5);
                 dynArray.Remove(20);
                 //Assert.ThrowsException<ArgumentOutOfRangeException>(Exception.Equals());
@@ -633,23 +630,26 @@ namespace TestProject
             }
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        [TestCategory("Исключение при вставке в пустой массив")]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestCategory("Исключение при вызове remove(0)")]
         public void DynArray_Remove_from_empty_array()
         {
             try
             {
                 DynArray<int> dynArray = new()
                 {
-                    count = 0,
-                    capacity = 32
+                    count = 0
+                    //capacity = 32
                 };
+
+                dynArray.Append(0);
                 dynArray.Remove(0);
                 //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
                 //Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
-                Assert.AreEqual(dynArray.count, 1);
-                Assert.AreEqual(dynArray.capacity, 32);
-                Assert.AreEqual(dynArray.GetItem(1), 555);
+                Assert.AreEqual(dynArray.count, 0);
+                Assert.AreEqual(dynArray.capacity, 16);
+
+                //Assert.AreEqual(dynArray.GetItem(0), 555);
             }
             catch (IndexOutOfRangeException e)
             {

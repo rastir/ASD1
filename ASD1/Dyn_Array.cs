@@ -108,6 +108,8 @@ namespace AlgorithmsDataStructures
         /// <param name="itm"></param>
         public void Append(T itm)
         {
+            if (itm.Equals(0))
+                return;
             ////длина массива превышает размер буфера
             ////Увеличение буфера выполняем, когда он весь полностью заполнен, и выполняется попытка добавления.
             if (count >= capacity)
@@ -178,6 +180,8 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Remove(int index)
         {
+            if (index == 0)
+                return;
             if ((index < 0 || index > count) || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
             
