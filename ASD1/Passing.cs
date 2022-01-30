@@ -8,7 +8,7 @@ namespace AlgorithmsDataStructures
         /// <summary>
         /// Поле-указатель на блок памяти нужной ёмкости
         /// </summary>
-        public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
+        public T[] array;
         /// <summary>
         /// Поле - текущее количество элементов в массиве
         /// </summary>
@@ -30,7 +30,7 @@ namespace AlgorithmsDataStructures
         /// Метод формирования блока памяти заданного размера
         /// </summary>
         /// <param name="new_capacity"></param>
-        public void MakeArray(int new_capacity)
+        public void MakeArray(int new_capacity) 
         {
             if (new_capacity < count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
@@ -47,9 +47,9 @@ namespace AlgorithmsDataStructures
         /// <returns></returns>
         public T GetItem(int index)
         {
-            if ((index <= 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
+            if ((index < 0 || index > count) || count == 0) //проверка корректности индекса в рамках границ
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");//генерациz соответствующего исключения, если обращение некорректно
-            return array[index - 1];
+            return array[index];
         }
         /// <summary>
         /// Метод добавления нового элемента в конец массива,
@@ -58,7 +58,7 @@ namespace AlgorithmsDataStructures
         public void Append(T itm)
         {
             //длина массива превышает размер буфера: увеличение буфера выполняем, когда он весь полностью заполнен, и выполняется попытка добавления.
-            if (count >= capacity)
+            if (count > capacity)
             {
                 while (count > capacity) //не верим тому кто формирует массив и передает заведомо некорректные сведения
                     MakeArray(2 * capacity); //увеличиваем размер буфера в два раза
@@ -91,21 +91,22 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Insert(T itm, int index)
         {
-            if (index < 0 || (index > count && !(count == 0 && index == 0)) || (index == 0 && count != 0))
+            if (index < 0 || index > count )//&& !(count == 0 && index == 0)) || (index == 0 && count != 0))
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
 
             if (count == capacity)
                 MakeArray(2 * capacity); //задаем блок памяти
 
-            if (index == count || index == 0)
+            if (index == count)
                 Append(itm);
-            else
+                //array[index] = itm;
+            else //if (index != 0)
             {
                 GetItem(index); //проверяем в нужном ли диапазоне номер позиции index
                                 // сдвигаем все элементы вправо до нужного индекса
-                for (int i = count - 1; i >= index - 1; i--)
+                for (int i = count - 1; i >= index; i--)
                     array[i + 1] = array[i];
-                array[index - 1] = itm;
+                array[index] = itm;
                 count++;
             }
         }
@@ -117,18 +118,24 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Remove(int index)
         {
-            if (index == 0)
+            if (index == 0 && count == 0)
                 return;
-            if (index < 0 || index > count || count == 0)
+
+            if (index < 0 || index > count - 1)// || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
-            
-            //сдвигаем
-            for (int i = index; i < count; i++)
-                array[i - 1] = array[i];
-            
+
+
+
+            if (index != count - 1)
+            {
+                //сдвигаем влево
+                for (int i = index; i < count; i++)
+                    array[i] = array[i + 1];
+            }
             //удаляем
+            else
+                array[count - 1] = default(T);
             count--;
-            array[count] = default(T);
 
             //сокращаем буфер
             if (count != 0)

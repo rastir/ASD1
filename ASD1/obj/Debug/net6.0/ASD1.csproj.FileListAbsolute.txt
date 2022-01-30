@@ -4,7 +4,6 @@ C:\github\asd1\ASD1\bin\Debug\net6.0\ASD1.runtimeconfig.json
 C:\github\asd1\ASD1\bin\Debug\net6.0\ASD1.dll
 C:\github\asd1\ASD1\bin\Debug\net6.0\ref\ASD1.dll
 C:\github\asd1\ASD1\bin\Debug\net6.0\ASD1.pdb
-C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.csproj.AssemblyReference.cache
 C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.GeneratedMSBuildEditorConfig.editorconfig
 C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.AssemblyInfoInputs.cache
 C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.AssemblyInfo.cs
