@@ -166,19 +166,18 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Remove(int index)
         {
-            if (index == 0 && count == 0)
-                return;
+            //if (index == 0 && count == 0)
+                //return;
 
-            if (index < 0 || index > count - 1)// || count == 0)
+            if (index < 0 || index > count - 1 || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
-
-
 
             if (index != count - 1)
             {
                 //сдвигаем влево
-                for (int i = index; i < count; i++)
+                for (int i = index; i < count - 1; i++)
                     array[i] = array[i + 1];
+                array[count - 1] = default(T);
             }
             //удаляем
             else
