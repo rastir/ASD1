@@ -706,7 +706,9 @@ namespace TestProject
                     dynArray.Append(i);
                     //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Append(i));
                 }
+                dynArray.Remove(0);
                 dynArray.Remove(32);
+                dynArray.Remove(0);
                 //Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => dynArray.Remove(0));
                 //Assert.ThrowsException<System.ArgumentNullException>(() => dynArray.Remove(0));
                 Assert.AreEqual(dynArray.count, 31);
