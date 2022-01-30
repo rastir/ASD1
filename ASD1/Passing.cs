@@ -8,7 +8,7 @@ namespace AlgorithmsDataStructures
         /// <summary>
         /// Поле-указатель на блок памяти нужной ёмкости
         /// </summary>
-        public T[] array;
+        public T[] array; //array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы
         /// <summary>
         /// Поле - текущее количество элементов в массиве
         /// </summary>
@@ -30,7 +30,7 @@ namespace AlgorithmsDataStructures
         /// Метод формирования блока памяти заданного размера
         /// </summary>
         /// <param name="new_capacity"></param>
-        public void MakeArray(int new_capacity) 
+        public void MakeArray(int new_capacity) //Стандартный рекомендуемый здесь приём -- array хранит массив фиксированной длины с объектами некоторого базового типа, к которому приводятся все остальные типы.Когда мы расширяем или уменьшаем размер array, мы просто пересоздаём его с новым размером, и затем копируем объекты(по сути, указатели) в массив нового размера.Это копирование выполняется очень быстро и практически не требует ресурсов.Более того, во многих языках имеется стандартная операция копирования массивов.
         {
             if (new_capacity < count)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
@@ -118,19 +118,18 @@ namespace AlgorithmsDataStructures
         /// <param name="index"></param>
         public void Remove(int index)
         {
-            if (index == 0 && count == 0)
-                return;
+            //if (index == 0 && count == 0)
+                //return;
 
-            if (index < 0 || index > count - 1)// || count == 0)
+            if (index < 0 || index > count - 1 || count == 0)
                 throw new ArgumentOutOfRangeException("Выход за пределы массива или пустой");
-
-
 
             if (index != count - 1)
             {
                 //сдвигаем влево
-                for (int i = index; i < count; i++)
+                for (int i = index; i < count - 1; i++)
                     array[i] = array[i + 1];
+                array[count - 1] = default(T);
             }
             //удаляем
             else
