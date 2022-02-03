@@ -9,24 +9,27 @@
 
   <ItemGroup>
 	<CSFile Include="*.cs" Exclude="DoNotBuild.cs" />
-	<Compile Remove="LinkedList.cs\**" />
-	<Compile Remove="projects_file_to_take\**" />
-	<CSFile Remove="LinkedList.cs\**" />
+	<CSFile Remove="LinkedList.cs" />
 	<CSFile Remove="projects_file_to_take\**" />
-	<EmbeddedResource Remove="LinkedList.cs\**" />
-	<EmbeddedResource Remove="projects_file_to_take\**" />
-	<None Remove="LinkedList.cs\**" />
-	<None Remove="projects_file_to_take\**" />
-	<CSFile Remove="Doubly_linkedlist.cs" />
 	<CSFile Remove="One_linkedlist.cs" />
+	<CSFile Remove="Doubly_linkedlist.cs" />
+	<CSFile Remove="DynArray.cs" />
+	<CSFile Remove="UnitTest_DynArray.cs" />
 	<CSFile Remove="Passing.cs" />
+
+	<Compile Remove="LinkedList.cs\**" />
+	<Compile Remove="projects_file_to_take\**" />	
 	<Compile Remove="Passing.cs" />
 	<Compile Remove="One_linkedlist.cs" />
 	<Compile Remove="Doubly_linkedlist.cs" />
-	<Compile Remove="UnitTest_Stack.cs" />
-	<Compile Remove="Stack.cs" />
-	<CSFile Remove="UnitTest_Stack.cs" />
-	<CSFile Remove="Stack.cs" />
+	<Compile Remove="UnitTest_DynArray.cs" />
+	<Compile Remove="DynArray.cs" />
+	
+	<EmbeddedResource Remove="LinkedList.cs\**" />
+	<EmbeddedResource Remove="projects_file_to_take\**" />
+	
+	<None Remove="LinkedList.cs\**" />
+	<None Remove="projects_file_to_take\**" />
   </ItemGroup>
 
   <Target Name="Build">
