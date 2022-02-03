@@ -9,7 +9,7 @@ namespace AlgorithmsDataStructures
     public class Stack<T> //обобщенный класс
     {
         public T[] items; //элементы любого типа T
-        private int count;
+        public int count;
         public int n;//= 10;
 
         //для инициализации делаем два конструктора
