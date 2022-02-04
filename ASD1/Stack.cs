@@ -116,14 +116,14 @@ namespace AlgorithmsDataStructures
         //        return self.stack[-1]
         //#
         public T[] items; //элементы любого типа T
-        private int count;
-        public int n;//= 10;
+        public int count; // количество элементов
 
         //для инициализации делаем два конструктора
         public Stack() //конструктор без параметров 
         {
+            count = 0;
             // инициализация внутреннего хранилища стека
-            items = new T[n]; //длина 10
+            items = new T[count]; //длина 10
             //var employees = new List<string> { "Tom", "Sam", "Bob" };
             //stack = new T[employees];
             //Stack<string> people = new(employees);
@@ -145,10 +145,9 @@ namespace AlgorithmsDataStructures
             get { return count; }
         }
 
-        public int Size()
+        public int Size() // размер текущего стека
         {
             //int count = 0;
-            //// размер текущего стека	
             //foreach (var employee in Employees)
             //    count++;
             //return count;
@@ -178,11 +177,33 @@ namespace AlgorithmsDataStructures
 
         public void Push(T val)
         {
+            //int newCapacity = capacity * 2;
+            //var newArray = new T[newCapacity];
+            //for (int i = 0; i < count; i++)
+            //{
+            //    newArray[i] = array[i];
+            //}
+            //array = newArray;
+            //capacity *= 2;
             // ваш код
+            //if (IsEmpty)
+            //{
+            //    items[count++] = val;
+            //    return;
+            //}
+            if (val == null)
+                return;
             // если стек заполнен, выбрасываем null
             if (count == items.Length)
-                throw new InvalidOperationException("Переполнение стека");
-            items[count++] = val;
+            {
+                if (IsEmpty)
+                    Array.Resize(ref items, items.Length + 2);
+                else
+                    Array.Resize(ref items, items.Length * 2);
+            }
+            items[count] = val;
+            count++;
+            //throw new InvalidOperationException("Переполнение стека");
         }
 
         public T Peek()
