@@ -142,10 +142,20 @@ namespace TestProject
                 Assert.AreEqual(stack.Count, 4);
                 // извлекаем один элемент
                 Assert.AreEqual(stack.Pop(), "Tom");
-                // просто получаем верхушку стека без извлечения
-                Assert.AreEqual(stack.Peek(), "Alice");
-                Assert.AreEqual(stack.Peek(), "Alice");
+                Assert.AreEqual(stack.Size(), 3);
+                Assert.AreEqual(stack.Count, 3);
 
+                Assert.AreEqual(stack.Pop(), "Alice");
+                Assert.AreEqual(stack.Size(), 2);
+                Assert.AreEqual(stack.Count, 2);
+
+                Assert.AreEqual(stack.Pop(), "Sam");
+                Assert.AreEqual(stack.Size(), 1);
+                Assert.AreEqual(stack.Count, 1);
+
+                Assert.AreEqual(stack.Pop(), "Kate");
+                Assert.AreEqual(stack.Size(), 0);
+                Assert.AreEqual(stack.Count, 0);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -172,7 +182,7 @@ namespace TestProject
                 Assert.AreEqual(stack.Size(), 0);
 
                 stack.Push("Kate");
-                Assert.AreEqual(stack.Pop(), null);
+                Assert.AreEqual(stack.Pop(), "Kate");
 
                 Assert.AreEqual(stack.Size(), 0);
                 Assert.AreEqual(stack.Count, 0);
@@ -218,7 +228,7 @@ namespace TestProject
                 Assert.AreEqual(stack.Peek(), "Alice");
                 Assert.AreEqual(stack2.Peek(), null);
 
-                Assert.AreEqual(stack.Size(), 4);
+                Assert.AreEqual(stack.Size(), 3);
                 Assert.AreEqual(stack2.Size(), 0);
             }
             catch (IndexOutOfRangeException e)

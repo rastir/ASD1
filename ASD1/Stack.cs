@@ -154,14 +154,14 @@ namespace AlgorithmsDataStructures
                 return default(T);
             if (items.Count() == 1)
             {
+                item = items[--count];
                 Array.Resize(ref items, 0);
-                count = 0;
-                item = default(T);
                 return item;
                 //items[count] = default(T);
             }
             item = items[--count];
-            items[count] = default(T); // сбрасываем ссылку
+            items[count] = default(T);// сбрасываем ссылку
+            Array.Resize(ref items, count);
             return item;
         }
 
