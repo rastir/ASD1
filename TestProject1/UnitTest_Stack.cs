@@ -163,6 +163,39 @@ namespace TestProject
         }
         [TestMethod]
         //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestCategory("Некорректная операция pop() для стека с одним элементом")]
+        public void Stack_pop_one_element()
+        {
+            try
+            {
+                Stack<string> stack = new Stack<string>();
+                Assert.AreEqual(stack.Size(), 0);
+
+                stack.Push("Kate");
+                Assert.AreEqual(stack.Pop(), null);
+
+                Assert.AreEqual(stack.Size(), 0);
+                Assert.AreEqual(stack.Count, 0);
+                // извлекаем один элемент
+                // просто получаем верхушку стека без извлечения
+                Assert.AreEqual(stack.Peek(), null);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"\" PASSED");
+            }
+        }
+        [TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         [TestCategory("Тесты")]
         public void Stack_Peek_empty_and_not_empty()
         {
@@ -244,6 +277,7 @@ namespace TestProject
                 Console.WriteLine("TEST \"\" PASSED");
             }
         }
+
 
 
         //[TestMethod]

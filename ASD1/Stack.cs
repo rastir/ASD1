@@ -148,10 +148,19 @@ namespace AlgorithmsDataStructures
 
         public T Pop()
         {
+            T item;
             // если стек пуст, выбрасываем null
             if (IsEmpty)
                 return default(T);
-            T item = items[--count];
+            if (items.Count() == 1)
+            {
+                Array.Resize(ref items, 0);
+                count = 0;
+                item = default(T);
+                return item;
+                //items[count] = default(T);
+            }
+            item = items[--count];
             items[count] = default(T); // сбрасываем ссылку
             return item;
         }
