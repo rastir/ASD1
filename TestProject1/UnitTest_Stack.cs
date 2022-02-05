@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 //using System.Collections.Generic;
+//using System.Linq;
 using AlgorithmsDataStructures;
 namespace TestProject
 {
@@ -73,7 +74,7 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new ();
+                Stack<string> stack = new();
 
                 Assert.AreEqual(stack.Size(), 0);
                 // добавляем четыре элемента
@@ -241,5 +242,47 @@ namespace TestProject
                 Console.WriteLine("TEST \"\" PASSED");
             }
         }
+
+
+        //[TestMethod]
+        ////[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //[TestCategory("пробуем библиотеку из Framework")]
+        //public void Stack_push_empty()
+        //{
+        //    try
+        //    {
+        //        Stack<string> stack = new();
+        //        stack.Push(null);
+        //        stack.Count();
+        //        stack.Push("Kate4");
+        //        stack.Push("Kate3");
+        //        stack.Push("Kate2");
+        //        stack.Push("Kate1");
+        //        stack.Peek();
+        //        stack.Peek();
+        //        stack.Pop();
+        //        stack.Pop();
+
+        //        Assert.AreEqual(stack.Peek, "333");
+        //        // добавляем четыре элемента
+        //        stack.Push("Kate");
+
+        //        Assert.AreEqual(stack.Count, 1);
+        //    }
+        //    catch (IndexOutOfRangeException e)
+        //    {
+        //        Assert.Fail();
+        //    }
+        //    catch (NullReferenceException e)
+        //    {
+        //        Console.WriteLine(e.Message + "TEST ERROR");
+        //        throw new ArgumentNullException("parameter is null.", e);
+        //    }
+        //    finally
+        //    {
+        //        Console.WriteLine("TEST \"\" PASSED");
+        //    }
+        //}
+
     }
 }

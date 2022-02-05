@@ -16,21 +16,20 @@ namespace AlgorithmsDataStructures
         {
             count = 0;
             // инициализация внутреннего хранилища стека
-            items = new T[count]; 
+            items = new T[count]; //длина 10
         }
 
         public Stack(int length) //конструктор с параметрами
         {
-            items = new T[length];//длину можем сами установить
+            items = new T[length]; //длину можем сами установить
         }
-        // пуст ли стек
-        public bool IsEmpty
+
+        public bool IsEmpty // пуст ли стек
         {
             get { return count == 0; }
         }
 
-        // размер стека
-        public int Count
+        public int Count  // размер стека
         {
             get { return count; }
         }
@@ -52,9 +51,7 @@ namespace AlgorithmsDataStructures
 
         public void Push(T val)
         {
-            if (val == null)
-                return;
-            // если стек заполнен, выбрасываем null
+            // если стек заполнен, увеличиваем
             if (count == items.Length)
             {
                 if (IsEmpty)
@@ -68,8 +65,7 @@ namespace AlgorithmsDataStructures
 
         public T Peek()
         {
-            // ваш код
-            // если стек пуст, выбрасываем исключение
+            // если стек пуст, выбрасываем null
             if (IsEmpty)
                 return default(T); // null, если стек пустой
             return items[count - 1];

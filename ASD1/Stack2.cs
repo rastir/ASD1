@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
@@ -124,63 +124,114 @@ namespace AlgorithmsDataStructures
             count = 0;
             // инициализация внутреннего хранилища стека
             items = new T[count]; //длина 10
+            //var employees = new List<string> { "Tom", "Sam", "Bob" };
+            //stack = new T[employees];
+            //Stack<string> people = new(employees);
         }
 
         public Stack(int length) //конструктор с параметрами
         {
-            items = new T[length]; //длину можем сами установить
+            items = new T[length];//длину можем сами установить
         }
-
-        public bool IsEmpty // пуст ли стек
+        // пуст ли стек
+        public bool IsEmpty
         {
             get { return count == 0; }
         }
 
-        public int Count  // размер стека
+        // размер стека
+        public int Count
         {
             get { return count; }
         }
 
         public int Size() // размер текущего стека
         {
+            //int count = 0;
+            //foreach (var employee in Employees)
+            //    count++;
+            //return count;
+
             return items.Length;
         }
 
         public T Pop()
         {
+            //if (Employees == null)
+            //    return default(T);
+            //else
+            //    return
+            //        if self.size() == 0:
+            //            return None  # если стек пустой
+            //        return self.stack.pop()
+            //return default(T); // null, если стек пустой
+
             // если стек пуст, выбрасываем null
             if (IsEmpty)
                 return default(T);
-            T item = items[--count];
-            items[count] = default(T); // сбрасываем ссылку
-            return item;
+
+            T ret = items[0];
+
+            //сдвигаем
+            for (int i = 0; i < count - 1; i++)
+                items[i] = items[i + 1];
+            
+            items[count - 1] = default(T); // сбрасываем ссылку
+            count--;
+            return ret;
         }
 
         public void Push(T val)
         {
-            // если стек заполнен, увеличиваем
+            //int newCapacity = capacity * 2;
+            //var newArray = new T[newCapacity];
+            //for (int i = 0; i < count; i++)
+            //{
+            //    newArray[i] = array[i];
+            //}
+            //array = newArray;
+            //capacity *= 2;
+            // ваш код
+            //if (IsEmpty)
+            //{
+            //    items[count++] = val;
+            //    return;
+            //}
+            //if (_size == _array.Length)
+            //{
+            //    Object[] newArray = new Object[2 * _array.Length];
+            //    Array.Copy(_array, 0, newArray, 0, _size);
+            //    _array = newArray;
+            //}
+            //_array[_size++] = obj;
+            //_version++;
+
             if (count == items.Length)
             {
                 if (IsEmpty)
-                    Array.Resize(ref items, items.Length + 2);
+                    Array.Resize(ref items, items.Length + 4);
                 else
                     Array.Resize(ref items, items.Length * 2);
             }
-            items[count] = val;
+            //сдвигаем
+            for (int i = count - 1; i >= 0; i--)
+                items[i + 1] = items[i];
+
+            items[0] = val;
             count++;
+            //throw new InvalidOperationException("Переполнение стека");
         }
 
         public T Peek()
         {
-            // если стек пуст, выбрасываем null
+            // ваш код
+            // если стек пуст, выбрасываем исключение
             if (IsEmpty)
                 return default(T); // null, если стек пустой
-            return items[count - 1];
+                                   //throw new InvalidOperationException("Стек пуст");
+            return items[0];
+            //return items[count - 1];
         }
-    }
-    class CMain
-    {
-        public static void Main() { }
     }
 }
 

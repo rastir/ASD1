@@ -24,6 +24,7 @@
 	<Compile Remove="Doubly_linkedlist.cs" />
 	<Compile Remove="UnitTest_DynArray.cs" />
 	<Compile Remove="DynArray.cs" />
+	<Compile Remove="Stack2.cs" />
 	
 	<EmbeddedResource Remove="LinkedList.cs\**" />
 	<EmbeddedResource Remove="projects_file_to_take\**" />
