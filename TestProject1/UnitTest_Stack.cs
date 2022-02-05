@@ -185,6 +185,8 @@ namespace TestProject
                 Assert.AreEqual(stack.Peek(), "Alice");
                 Assert.AreEqual(stack2.Peek(), null);
 
+                Assert.AreEqual(stack.Size(), 4);
+                Assert.AreEqual(stack2.Size(), 0);
             }
             catch (IndexOutOfRangeException e)
             {

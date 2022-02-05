@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using System;
+//using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
 {
@@ -161,10 +161,10 @@ namespace AlgorithmsDataStructures
             // если стек заполнен, увеличиваем
             if (count == items.Length)
             {
-                if (IsEmpty)
-                    Array.Resize(ref items, items.Length + 2);
-                else
-                    Array.Resize(ref items, items.Length * 2);
+                //if (IsEmpty)
+                    Array.Resize(ref items, items.Length + 1);
+                //else
+                    //Array.Resize(ref items, items.Length * 2);
             }
             items[count] = val;
             count++;
