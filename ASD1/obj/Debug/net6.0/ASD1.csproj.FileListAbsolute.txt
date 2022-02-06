@@ -12,4 +12,3 @@ C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.dll
 C:\github\asd1\ASD1\obj\Debug\net6.0\ref\ASD1.dll
 C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.pdb
 C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.genruntimeconfig.cache
-C:\github\asd1\ASD1\obj\Debug\net6.0\ASD1.csproj.AssemblyReference.cache

@@ -1,12 +1,13 @@
-//using System;
-//using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace AlgorithmsDataStructures
 {
     /// <summary>
     /// Стэк
     /// </summary>
-	public class Stack<T> //обобщенный класс
+    public class Stack<T> //обобщенный класс
     {
         public T[] items; //элементы любого типа T
         public int count; // количество элементов
@@ -49,8 +50,8 @@ namespace AlgorithmsDataStructures
             {
                 item = items[--count];
                 Array.Resize(ref items, 0);
+
                 return item;
-                //items[count] = default(T);
             }
             item = items[--count];
             items[count] = default(T);// сбрасываем ссылку
@@ -63,10 +64,7 @@ namespace AlgorithmsDataStructures
             // если стек заполнен, увеличиваем
             if (count == items.Length)
             {
-                //if (IsEmpty)
-                    Array.Resize(ref items, items.Length + 1);
-                //else
-                    //Array.Resize(ref items, items.Length * 2);
+                Array.Resize(ref items, items.Length + 1);
             }
             items[count] = val;
             count++;
@@ -79,5 +77,34 @@ namespace AlgorithmsDataStructures
                 return default(T); // null, если стек пустой
             return items[count - 1];
         }
+        ///4. Напишите функцию, которая получает на вход строку, состоящую из открывающих и закрывающих скобок(например, "(()((())()))" или "(()()(()") 
+        ///и, используя только стек и оператор цикла, определите, сбалансированы ли скобки в этой строке.
+        ///Сбалансированной считается последовательность, в которой каждой открывающей обязательно соответствует закрывающая, 
+        ///а каждой закрывающей -- открывающая скобки, то есть последовательности "())(" , "))((" или "((())" будут несбалансированы.
+
+        public bool Brackets(string text)
+        {
+            char[] characters = text.ToCharArray();
+            int counter = 0;
+
+            Stack<string> stack3 = new(text.Length);
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (characters[i] == '(')
+                    stack3.Push(characters[i].ToString());
+                else
+                    stack3.Pop();
+            }
+            if (stack3.Count != 0)
+                return false;
+            else
+                return true;
+        }
+    }
+    class CMain
+    {
+        public static void Main() { }
     }
 }
+

@@ -18,10 +18,10 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new Stack<string>();
-                Stack<string> stack2 = new Stack<string>(5);
-                Assert.AreEqual(stack.Size(), 0);
-                Assert.AreEqual(stack2.Size(), 5);
+                Stack<string> Stack = new Stack<string>();
+                Stack<string> Stack2 = new Stack<string>(5);
+                Assert.AreEqual(Stack.Size(), 0);
+                Assert.AreEqual(Stack2.Size(), 5);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -44,14 +44,14 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new Stack<string>(5);
+                Stack<string> Stack = new Stack<string>(5);
 
-                stack.Push("Kate");
-                stack.Push("Sam");
-                stack.Push("Alice");
-                stack.Push("Tom");
+                Stack.Push("Kate");
+                Stack.Push("Sam");
+                Stack.Push("Alice");
+                Stack.Push("Tom");
 
-                Assert.AreEqual(stack.Count, 4);
+                Assert.AreEqual(Stack.Count, 4);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -74,13 +74,13 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new();
+                Stack<string> Stack = new();
 
-                Assert.AreEqual(stack.Size(), 0);
+                Assert.AreEqual(Stack.Size(), 0);
                 // добавляем четыре элемента
-                stack.Push("Kate");
+                Stack.Push("Kate");
 
-                Assert.AreEqual(stack.Count, 1);
+                Assert.AreEqual(Stack.Count, 1);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -103,11 +103,11 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new Stack<string>();
+                Stack<string> Stack = new Stack<string>();
 
-                Assert.AreEqual(stack.Count, 0);
+                Assert.AreEqual(Stack.Count, 0);
                 // извлекаем один элемент
-                Assert.AreEqual(stack.Pop(), null);
+                Assert.AreEqual(Stack.Pop(), null);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -130,32 +130,32 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new Stack<string>();
-                Assert.AreEqual(stack.Size(), 0);
+                Stack<string> Stack = new Stack<string>();
+                Assert.AreEqual(Stack.Size(), 0);
 
                 // добавляем четыре элемента
-                stack.Push("Kate");
-                stack.Push("Sam");
-                stack.Push("Alice");
-                stack.Push("Tom");
+                Stack.Push("Kate");
+                Stack.Push("Sam");
+                Stack.Push("Alice");
+                Stack.Push("Tom");
 
-                Assert.AreEqual(stack.Count, 4);
+                Assert.AreEqual(Stack.Count, 4);
                 // извлекаем один элемент
-                Assert.AreEqual(stack.Pop(), "Tom");
-                Assert.AreEqual(stack.Size(), 3);
-                Assert.AreEqual(stack.Count, 3);
+                Assert.AreEqual(Stack.Pop(), "Tom");
+                Assert.AreEqual(Stack.Size(), 3);
+                Assert.AreEqual(Stack.Count, 3);
 
-                Assert.AreEqual(stack.Pop(), "Alice");
-                Assert.AreEqual(stack.Size(), 2);
-                Assert.AreEqual(stack.Count, 2);
+                Assert.AreEqual(Stack.Pop(), "Alice");
+                Assert.AreEqual(Stack.Size(), 2);
+                Assert.AreEqual(Stack.Count, 2);
 
-                Assert.AreEqual(stack.Pop(), "Sam");
-                Assert.AreEqual(stack.Size(), 1);
-                Assert.AreEqual(stack.Count, 1);
+                Assert.AreEqual(Stack.Pop(), "Sam");
+                Assert.AreEqual(Stack.Size(), 1);
+                Assert.AreEqual(Stack.Count, 1);
 
-                Assert.AreEqual(stack.Pop(), "Kate");
-                Assert.AreEqual(stack.Size(), 0);
-                Assert.AreEqual(stack.Count, 0);
+                Assert.AreEqual(Stack.Pop(), "Kate");
+                Assert.AreEqual(Stack.Size(), 0);
+                Assert.AreEqual(Stack.Count, 0);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -178,17 +178,17 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new Stack<string>();
-                Assert.AreEqual(stack.Size(), 0);
+                Stack<string> Stack = new Stack<string>();
+                Assert.AreEqual(Stack.Size(), 0);
 
-                stack.Push("Kate");
-                Assert.AreEqual(stack.Pop(), "Kate");
+                Stack.Push("Kate");
+                Assert.AreEqual(Stack.Pop(), "Kate");
 
-                Assert.AreEqual(stack.Size(), 0);
-                Assert.AreEqual(stack.Count, 0);
+                Assert.AreEqual(Stack.Size(), 0);
+                Assert.AreEqual(Stack.Count, 0);
                 // извлекаем один элемент
                 // просто получаем верхушку стека без извлечения
-                Assert.AreEqual(stack.Peek(), null);
+                Assert.AreEqual(Stack.Peek(), null);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -211,25 +211,25 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new Stack<string>();
-                Stack<string> stack2 = new Stack<string>();
-                Assert.AreEqual(stack.Size(), 0);
-                Assert.AreEqual(stack2.Size(), 0);
+                Stack<string> Stack = new Stack<string>();
+                Stack<string> Stack2 = new Stack<string>();
+                Assert.AreEqual(Stack.Size(), 0);
+                Assert.AreEqual(Stack2.Size(), 0);
 
                 // добавляем четыре элемента
-                stack.Push("Kate");
-                stack.Push("Sam");
-                stack.Push("Alice");
-                stack.Push("Tom");
+                Stack.Push("Kate");
+                Stack.Push("Sam");
+                Stack.Push("Alice");
+                Stack.Push("Tom");
 
                 // извлекаем один элемент
-                Assert.AreEqual(stack.Pop(), "Tom");
+                Assert.AreEqual(Stack.Pop(), "Tom");
                 // просто получаем верхушку стека без извлечения
-                Assert.AreEqual(stack.Peek(), "Alice");
-                Assert.AreEqual(stack2.Peek(), null);
+                Assert.AreEqual(Stack.Peek(), "Alice");
+                Assert.AreEqual(Stack2.Peek(), null);
 
-                Assert.AreEqual(stack.Size(), 3);
-                Assert.AreEqual(stack2.Size(), 0);
+                Assert.AreEqual(Stack.Size(), 3);
+                Assert.AreEqual(Stack2.Size(), 0);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -252,26 +252,79 @@ namespace TestProject
         {
             try
             {
-                Stack<string> stack = new Stack<string>();
-                Stack<string> stack2 = new Stack<string>();
-                Stack<string> stack3 = new Stack<string>(8);
-                Assert.AreEqual(stack.Size(), 0);
-                Assert.AreEqual(stack2.Size(), 0);
+                Stack<string> Stack = new Stack<string>();
+                Stack<string> Stack2 = new Stack<string>();
+                Stack<string> Stack3 = new Stack<string>(8);
+                Assert.AreEqual(Stack.Size(), 0);
+                Assert.AreEqual(Stack2.Size(), 0);
 
                 // добавляем четыре элемента
-                stack.Push(null);
-                stack.Push("Sam");
-                stack.Push("Alice");
-                stack.Push("Tom");
+                Stack.Push(null);
+                Stack.Push("Sam");
+                Stack.Push("Alice");
+                Stack.Push("Tom");
 
-                stack3.Push("Sam");
-                stack3.Push("Ssss");
+                Stack3.Push("Sam");
+                Stack3.Push("Ssss");
                 // извлекаем один элемент
-                Assert.AreEqual(stack.Pop(), "Tom");
+                Assert.AreEqual(Stack.Pop(), "Tom");
                 // просто получаем верхушку стека без извлечения
-                Assert.AreEqual(stack.Peek(), "Alice");
-                Assert.AreEqual(stack2.Peek(), null);
+                Assert.AreEqual(Stack.Peek(), "Alice");
+                Assert.AreEqual(Stack2.Peek(), null);
 
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"\" PASSED");
+            }
+        }
+        [TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestCategory("Тесты")]
+        public void Stack_Brackets_array()
+        {
+            try
+            {
+                string brackets = "(()((())()))";
+                Stack<string> Stackk = new Stack<string>();
+
+                Assert.AreEqual(Stackk.Brackets(brackets),true);
+
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"\" PASSED");
+            }
+        }
+        [TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestCategory("Тесты")]
+        public void Stack_Brackets_stack()
+        {
+            try
+            {
+                string brackets = "(()((())()))";
+                Stack<string> Stackk = new Stack<string>();
+
+                Stackk.Brackets(brackets);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -289,7 +342,6 @@ namespace TestProject
         }
 
 
-
         //[TestMethod]
         ////[ExpectedException(typeof(ArgumentOutOfRangeException))]
         //[TestCategory("пробуем библиотеку из Framework")]
@@ -297,23 +349,23 @@ namespace TestProject
         //{
         //    try
         //    {
-        //        Stack<string> stack = new();
-        //        stack.Push(null);
-        //        stack.Count();
-        //        stack.Push("Kate4");
-        //        stack.Push("Kate3");
-        //        stack.Push("Kate2");
-        //        stack.Push("Kate1");
-        //        stack.Peek();
-        //        stack.Peek();
-        //        stack.Pop();
-        //        stack.Pop();
+        //        Stack<string> Stack = new();
+        //        Stack.Push(null);
+        //        Stack.Count();
+        //        Stack.Push("Kate4");
+        //        Stack.Push("Kate3");
+        //        Stack.Push("Kate2");
+        //        Stack.Push("Kate1");
+        //        Stack.Peek();
+        //        Stack.Peek();
+        //        Stack.Pop();
+        //        Stack.Pop();
 
-        //        Assert.AreEqual(stack.Peek, "333");
+        //        Assert.AreEqual(Stack.Peek, "333");
         //        // добавляем четыре элемента
-        //        stack.Push("Kate");
+        //        Stack.Push("Kate");
 
-        //        Assert.AreEqual(stack.Count, 1);
+        //        Assert.AreEqual(Stack.Count, 1);
         //    }
         //    catch (IndexOutOfRangeException e)
         //    {

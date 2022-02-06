@@ -193,25 +193,40 @@ namespace AlgorithmsDataStructures
         ///Сбалансированной считается последовательность, в которой каждой открывающей обязательно соответствует закрывающая, 
         ///а каждой закрывающей -- открывающая скобки, то есть последовательности "())(" , "))((" или "((())" будут несбалансированы.
 
-        public bool Brackets(string text)
-        {
-            char[] characters = text.ToCharArray();
-            int counter = 0;
+        //public bool Brackets (string text)
+        //{
+        //    bool check;
+        //    int counter = 0;
 
-            Stack<string> stack3 = new(text.Length);
+        //    Stack<string> stack3 = new(text.Length);
+        //    text.ToCharArray();
 
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (characters[i] == '(')
-                    stack3.Push(characters[i].ToString());
-                else
-                    stack3.Pop();
-            }
-            if (stack3.Count != 0)
-                return false;
-            else
-                return true;
-        }
+        //    string[] array = ["a1", "a2", "a3"];
+        //    Stack<string> stack = new Stack<string>(array);
+
+        //    for (int i = 0; i < text.Length; i++)
+        //        Stack item = stack3[i];
+        //        stack3.Push(text.ToCharArray(i));
+            
+        //    Employee employee = new Employee("Tom", "Microsoft");
+        //    Person person = employee;
+
+            
+        //    T item;
+        //    for (int i = 0; i < text.Length; i++)
+        //        item = (T)text[i];
+        //        items[i] = Push(item);
+
+        //    //for (int i = 1; i <  to length(s)
+        //    //  if s[i] == '('
+        //    //    counter++
+        //    //  else
+        //    //                 counter--
+        //    //  if counter < 0
+        //    //    return false
+        //    //return counter == 0
+        //    return Brackets(text, 0,);
+        //}
     }
     class CMain
     {
