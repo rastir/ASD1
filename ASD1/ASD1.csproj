@@ -16,7 +16,7 @@
 	<CSFile Remove="DynArray.cs" />
 	<CSFile Remove="UnitTest_DynArray.cs" />
 	<CSFile Remove="Passing.cs" />
-	<CSFile Remove="Stack2.cs" />
+	<CSFile Remove="Stack.cs" />
 
 	<Compile Remove="LinkedList.cs\**" />
 	<Compile Remove="projects_file_to_take\**" />	
@@ -25,7 +25,7 @@
 	<Compile Remove="Doubly_linkedlist.cs" />
 	<Compile Remove="UnitTest_DynArray.cs" />
 	<Compile Remove="DynArray.cs" />
-	<Compile Remove="Stack2.cs" />
+	<Compile Remove="Stack.cs" />
 	<Compile Remove="Queue.cs" />
 	
 	<EmbeddedResource Remove="LinkedList.cs\**" />

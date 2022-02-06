@@ -19,9 +19,7 @@ namespace TestProject
             try
             {
                 Stack<string> Stack = new Stack<string>();
-                Stack<string> Stack2 = new Stack<string>(5);
                 Assert.AreEqual(Stack.Size(), 0);
-                Assert.AreEqual(Stack2.Size(), 5);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -44,7 +42,7 @@ namespace TestProject
         {
             try
             {
-                Stack<string> Stack = new Stack<string>(5);
+                Stack<string> Stack = new Stack<string>();
 
                 Stack.Push("Kate");
                 Stack.Push("Sam");
@@ -254,7 +252,6 @@ namespace TestProject
             {
                 Stack<string> Stack = new Stack<string>();
                 Stack<string> Stack2 = new Stack<string>();
-                Stack<string> Stack3 = new Stack<string>(8);
                 Assert.AreEqual(Stack.Size(), 0);
                 Assert.AreEqual(Stack2.Size(), 0);
 
@@ -264,8 +261,6 @@ namespace TestProject
                 Stack.Push("Alice");
                 Stack.Push("Tom");
 
-                Stack3.Push("Sam");
-                Stack3.Push("Ssss");
                 // извлекаем один элемент
                 Assert.AreEqual(Stack.Pop(), "Tom");
                 // просто получаем верхушку стека без извлечения
@@ -287,18 +282,80 @@ namespace TestProject
                 Console.WriteLine("TEST \"\" PASSED");
             }
         }
+        //[TestMethod]
+        ////[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //[TestCategory("Тесты")]
+        //public void Stack_Brackets_array()
+        //{
+        //    try
+        //    {
+        //        string brackets = "(()((())()))";
+        //        Stack<string> Stackk = new Stack<string>();
+
+        //        Assert.AreEqual(Stackk.Brackets(brackets), true);
+
+        //    }
+        //    catch (IndexOutOfRangeException e)
+        //    {
+        //        Assert.Fail();
+        //    }
+        //    catch (NullReferenceException e)
+        //    {
+        //        Console.WriteLine(e.Message + "TEST ERROR");
+        //        throw new ArgumentNullException("parameter is null.", e);
+        //    }
+        //    finally
+        //    {
+        //        Console.WriteLine("TEST \"\" PASSED");
+        //    }
+        //}
+        //[TestMethod]
+        ////[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //[TestCategory("Тесты")]
+        //public void Stack_Brackets_stack()
+        //{
+        //    try
+        //    {
+        //        string brackets = "(()((())()))";
+        //        Stack<string> Stackk = new Stack<string>();
+
+        //        Stackk.Brackets(brackets);
+        //    }
+        //    catch (IndexOutOfRangeException e)
+        //    {
+        //        Assert.Fail();
+        //    }
+        //    catch (NullReferenceException e)
+        //    {
+        //        Console.WriteLine(e.Message + "TEST ERROR");
+        //        throw new ArgumentNullException("parameter is null.", e);
+        //    }
+        //    finally
+        //    {
+        //        Console.WriteLine("TEST \"\" PASSED");
+        //    }
+        //}
         [TestMethod]
         //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         [TestCategory("Тесты")]
-        public void Stack_Brackets_array()
+        public void Stack2_push_()
         {
             try
             {
-                string brackets = "(()((())()))";
-                Stack<string> Stackk = new Stack<string>();
+                Stack<string> Stack = new Stack<string>();
 
-                Assert.AreEqual(Stackk.Brackets(brackets),true);
+                Stack.Push("Kate");
+                Stack.Push("Sam");
+                Stack.Push("Alice");
+                Stack.Push("Tom");
 
+                Assert.AreEqual(Stack.Count, 4);
+
+                Assert.AreEqual(Stack.Pop(), "Tom");
+                Assert.AreEqual(Stack.Pop(), "Alice");
+                Assert.AreEqual(Stack.Pop(), "Sam");
+                Assert.AreEqual(Stack.Pop(), "Kate");
+                Assert.AreEqual(Stack.Pop(), null);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -314,33 +371,6 @@ namespace TestProject
                 Console.WriteLine("TEST \"\" PASSED");
             }
         }
-        [TestMethod]
-        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
-        [TestCategory("Тесты")]
-        public void Stack_Brackets_stack()
-        {
-            try
-            {
-                string brackets = "(()((())()))";
-                Stack<string> Stackk = new Stack<string>();
-
-                Stackk.Brackets(brackets);
-            }
-            catch (IndexOutOfRangeException e)
-            {
-                Assert.Fail();
-            }
-            catch (NullReferenceException e)
-            {
-                Console.WriteLine(e.Message + "TEST ERROR");
-                throw new ArgumentNullException("parameter is null.", e);
-            }
-            finally
-            {
-                Console.WriteLine("TEST \"\" PASSED");
-            }
-        }
-
 
         //[TestMethod]
         ////[ExpectedException(typeof(ArgumentOutOfRangeException))]
