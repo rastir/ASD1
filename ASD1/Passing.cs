@@ -92,11 +92,17 @@ namespace AlgorithmsDataStructures
             for (int i = 0; i < text.Length; i++)
             {
                 if (characters[i] == '(')
+                {
                     stack3.Push(characters[i].ToString());
+                    counter++;
+                }
                 else
+                {
                     stack3.Pop();
+                    counter--;
+                }
             }
-            if (stack3.Count != 0)
+            if (stack3.Count != 0 || counter != 0)
                 return false;
             else
                 return true;
@@ -107,4 +113,3 @@ namespace AlgorithmsDataStructures
         public static void Main() { }
     }
 }
-
