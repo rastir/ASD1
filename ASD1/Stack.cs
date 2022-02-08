@@ -173,9 +173,9 @@ namespace AlgorithmsDataStructures
             if (count == items.Length)
             {
                 //if (IsEmpty)
-                    Array.Resize(ref items, items.Length + 1);
+                Array.Resize(ref items, items.Length + 1);
                 //else
-                    //Array.Resize(ref items, items.Length * 2);
+                //Array.Resize(ref items, items.Length * 2);
             }
             items[count] = val;
             count++;
@@ -196,24 +196,27 @@ namespace AlgorithmsDataStructures
         public bool Brackets(string text)
         {
             char[] characters = text.ToCharArray();
-            int counter = 0;
 
             Stack<string> stack3 = new(text.Length);
 
             for (int i = 0; i < text.Length; i++)
             {
+                if ((stack3.Size() == 0 && (i != text.Length - 1 && characters[i] == ')')) || (i == 0 && characters[i] == ')'))
+                {
+                    return false;
+                }
+
                 if (characters[i] == '(')
                 {
-                    stack3.Push(characters[i].ToString());
-                    counter++;
+                    stack3.Push("1");
                 }
-                else
+                else if (characters[i] == ')')
                 {
                     stack3.Pop();
-                    counter--;
                 }
             }
-            if (stack3.Count != 0 || counter != 0)
+
+            if (stack3.Count != 0)
                 return false;
             else
                 return true;
@@ -223,5 +226,6 @@ namespace AlgorithmsDataStructures
     {
         public static void Main() { }
     }
+
 }
 

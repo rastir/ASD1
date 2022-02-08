@@ -342,10 +342,26 @@ namespace TestProject
         {
             try
             {
-                string brackets = "))(()((())()))";
-                Stack<string> Stackk = new Stack<string>();
+                string brackets = "(()((())()))";
+                string brackets2 = "))";
+                string brackets3 = "())(";
+                string brackets4 = "(()()(()";
+                string brackets5 = "))((";
+                string brackets6 = "(()()(()))";
 
-                Assert.AreEqual(Stackk.Brackets(brackets),false);
+                Stack<string> Stackk = new Stack<string>();
+                Stack<string> Stackk2 = new Stack<string>();
+                Stack<string> Stackk3 = new Stack<string>();
+                Stack<string> Stackk4 = new Stack<string>();
+                Stack<string> Stackk5 = new Stack<string>();
+                Stack<string> Stackk6 = new Stack<string>();
+
+                Assert.AreEqual(Stackk.Brackets(brackets),true);
+                Assert.AreEqual(Stackk2.Brackets(brackets2), false);
+                Assert.AreEqual(Stackk3.Brackets(brackets3), false);
+                Assert.AreEqual(Stackk4.Brackets(brackets4), false);
+                Assert.AreEqual(Stackk5.Brackets(brackets5), false);
+                Assert.AreEqual(Stackk6.Brackets(brackets6), true);
             }
             catch (IndexOutOfRangeException e)
             {

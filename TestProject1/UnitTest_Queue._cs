@@ -159,7 +159,7 @@ namespace TestProject
                 queue.Enqueue("77");
                 queue.Enqueue("888");
 
-                queue.Queue_rotate(4);                
+                queue.Queue_rotate(14);                
             }
             catch (IndexOutOfRangeException e)
             {
