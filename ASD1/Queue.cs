@@ -86,6 +86,26 @@ namespace AlgorithmsDataStructures
         {
             return items.Length;
         }
+        ///2. Оцените меру сложности для операций enqueue() (добавление) и dequeue() (удаление) в данной реализации.
+        ///Метод Enqueue. Сложность: O(1) - для списка (list), O(N) - для динамического массива .
+        ///Метод Dequeue. Сложность: O(1) - для списка (list), O(N) - для динамического массива .
+
+        ///3. Напишите функцию, которая "вращает" очередь по кругу на N элементов.
+        public void Queue_rotate(int num)
+        {
+            if (num > Size())
+                return;
+            else
+            {
+                int counter = 0;
+
+                while (counter != num)
+                {
+                    Enqueue(Dequeue());
+                    counter++;
+                }
+            }
+        }
     }
 
     class CMain

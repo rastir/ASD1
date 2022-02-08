@@ -144,47 +144,36 @@ namespace TestProject
                 Console.WriteLine("TEST \"\" PASSED");
             }
         }
+        [TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestCategory("Тесты")]
+        public void Queue_rotate()
+        {
+            try
+            {
+                Queue<string> queue = new Queue<string>();
+                queue.Enqueue("333");
+                queue.Enqueue("4");
+                queue.Enqueue("555");
+                queue.Enqueue("6");
+                queue.Enqueue("77");
+                queue.Enqueue("888");
 
-
-        //[TestMethod]
-        ////[ExpectedException(typeof(ArgumentOutOfRangeException))]
-        //[TestCategory("пробуем библиотеку из Framework")]
-        //public void Stack_push_empty()
-        //{
-        //    try
-        //    {
-        //        Stack<string> Stack = new();
-        //        Stack.Push(null);
-        //        Stack.Count();
-        //        Stack.Push("Kate4");
-        //        Stack.Push("Kate3");
-        //        Stack.Push("Kate2");
-        //        Stack.Push("Kate1");
-        //        Stack.Peek();
-        //        Stack.Peek();
-        //        Stack.Pop();
-        //        Stack.Pop();
-
-        //        Assert.AreEqual(Stack.Peek, "333");
-        //        // добавляем четыре элемента
-        //        Stack.Push("Kate");
-
-        //        Assert.AreEqual(Stack.Count, 1);
-        //    }
-        //    catch (IndexOutOfRangeException e)
-        //    {
-        //        Assert.Fail();
-        //    }
-        //    catch (NullReferenceException e)
-        //    {
-        //        Console.WriteLine(e.Message + "TEST ERROR");
-        //        throw new ArgumentNullException("parameter is null.", e);
-        //    }
-        //    finally
-        //    {
-        //        Console.WriteLine("TEST \"\" PASSED");
-        //    }
-        //}
-
+                queue.Queue_rotate(4);                
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.Fail();
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "TEST ERROR");
+                throw new ArgumentNullException("parameter is null.", e);
+            }
+            finally
+            {
+                Console.WriteLine("TEST \"\" PASSED");
+            }
+        }
     }
 }
