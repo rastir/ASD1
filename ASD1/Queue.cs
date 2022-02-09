@@ -93,6 +93,15 @@ namespace AlgorithmsDataStructures
         ///3. Напишите функцию, которая "вращает" очередь по кругу на N элементов.
         public void Queue_rotate(int num)
         {
+            for (int i = 0; i <= num; i++)
+            {
+                Enqueue(Dequeue());
+            }
+        }
+
+        //4. реализовать очередь с помощью двух стеков.
+        public void Queue_with_two_stacks(int num)
+        {
             int counter = 0;
 
             for (int i = 0; i <= num; i++)
@@ -101,9 +110,9 @@ namespace AlgorithmsDataStructures
                 counter++;
             }
         }
-    }
 
-    class CMain
+    }
+        class CMain
     {
         public static void Main() { }
     }
