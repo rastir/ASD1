@@ -1,89 +1,109 @@
-using System;
-using System.Collections.Generic;
-using System.Collections;
-
 namespace AlgorithmsDataStructures
 {
     /// <summary>
-    /// Очереди
+    /// Очередь: задание №4 "реализовать очередь с помощью двух стеков"
     /// </summary>
-    public class Queue<T>
+    public class Stack<T> //обобщенный класс
     {
-        public T[] items; //элементы любого типа T
-        public int count; // количество элементов
-        public Queue()
+        public T[] items1; //элементы любого типа T
+        public T[] items2; //элементы любого типа T
+        public int count; // количество элементов очереди
+        private int count1; // количество элементов стэка1
+        private int count2; // количество элементов стэка2
+
+        public Stack() //конструктор без параметров 
         {
-            // инициализация внутреннего хранилища очереди
             count = 0;
-            items = new T[count]; 
+            count1 = 0;
+            count2 = 0;
+            // инициализация внутреннего хранилища стека
+            items1 = new T[count1];
+            items2 = new T[count2]; 
         }
-
-        public bool IsEmpty // пуста ли очередь
+        public bool IsEmpty () // пуст ли стек
         {
-            get { return count == 0; }
+            return (count1 == 0 && count2 ==0);
         }
 
-        public void Enqueue(T item) // вставка в хвост очереди
+        public int Count()  // размер очереди
         {
-            // если стек заполнен, увеличиваем
-            if (count == items.Length)
-            {
-                Array.Resize(ref items, items.Length + 1);
-            }
-            //сдвигаем вправо
-            if (count != 0)
-            {
-                for (int i = items.Length - 1; i > 0; i--)
-                    items[i] = items[i - 1];
-            }
-            
-            items[0] = item;
-            count++;
+            if (count1 != 0)
+                return count1;
+            else if (count2 != 0)
+                return count2;
+            else 
+                return 0;
+        }
+        public int Count1  // размер стека1
+        {
+            get { return count1; }
         }
 
-        public T Dequeue() //вернуть из головы очереди
+        public int Count2  // размер стека2
+        {
+            get { return count2; }
+        }
+
+        public T Pop()
         {
             T item;
 
-            if (Size() == 0)
-                return default(T);
-
-            if (items.Length == 1)
+            if (count2 == 0)  
             {
-                item = items[--count];
-                Array.Resize(ref items, 0);
+                if (count1 != 0)
+                {
+                    for (int i = 0; i < items1.Length; i++)
+                    {
+                        Push2(items1[--count1]); // если стек пуст перекладываем/переворачиваем
+                        items1[count1] = default(T);// сбрасываем ссылку
+                    }
+                }
+                else 
+                    return default(T);
+            }
+
+            else if (count2 == 1)
+            {
+                item = items2[--count2];
+                Array.Resize(ref items2, 0);
 
                 return item;
             }
-
-            item = items[--count];
-            Array.Resize(ref items, count);
+            item = items2[count2 - 1];
+            items2[--count2] = default(T);// сбрасываем ссылку
+            Array.Resize(ref items2, count2);
             return item;
         }
 
-        public int Size()
+        public void Push(T val)
         {
-            return items.Length;
-        }
-        ///2. Оцените меру сложности для операций enqueue() (добавление) и dequeue() (удаление) в данной реализации.
-        ///Метод Enqueue. Сложность: O(1) - для списка (list), O(N) - для динамического массива .
-        ///Метод Dequeue. Сложность: O(1) - для списка (list), O(N) - для динамического массива .
-
-        ///3. Напишите функцию, которая "вращает" очередь по кругу на N элементов.
-        public void Queue_rotate(int num)
-        {
-            if (num > Size())
-                return;
-            else
+            if (count1 == items1.Length) // переполнен, увеличиваем
             {
-                int counter = 0;
-
-                while (counter != num)
-                {
-                    Enqueue(Dequeue());
-                    counter++;
-                }
+                Array.Resize(ref items1, items1.Length + 1);
             }
+
+            items1[count1] = val;
+            count1++;
+        }
+
+        public void Push2(T val)
+        {
+            if (count2 == items2.Length) // переполнен, увеличиваем
+            {
+                Array.Resize(ref items2, items2.Length + 1);
+            }
+            items2[count2] = val;
+            count2++;
+        }
+
+        public T Peek()
+        {
+            if (count1 != 0)
+                return items1[0];
+            else if (count2 != 0)
+                return items2[count2 - 1];
+            else
+                return default(T);
         }
     }
 }

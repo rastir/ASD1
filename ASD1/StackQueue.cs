@@ -1,103 +1,114 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Collections;
 
 namespace AlgorithmsDataStructures
 {
     /// <summary>
-    /// Очередь
+    /// Очередь: задание №4 "реализовать очередь с помощью двух стеков"
     /// </summary>
-    const Stack = require('./Stack');
     public class Stack<T> //обобщенный класс
     {
         public T[] items1; //элементы любого типа T
         public T[] items2; //элементы любого типа T
-        public int count; // количество элементов
+        public int count; // количество элементов очереди
+        private int count1; // количество элементов стэка1
+        private int count2; // количество элементов стэка2
 
         //для инициализации делаем два конструктора
         public Stack() //конструктор без параметров 
         {
             count = 0;
+            count1 = 0;
+            count2 = 0;
             // инициализация внутреннего хранилища стека
-            items1 = new T[count]; 
-            items2 = new T[count]; 
+            items1 = new T[count1];
+            items2 = new T[count2]; 
         }
-        public bool IsEmpty // пуст ли стек
+        public bool IsEmpty () // пуст ли стек
         {
-            get { return count == 0; }
-        }
-
-        public int Count  // размер стека
-        {
-            get { return count; }
+            return (count1 == 0 && count2 ==0);
         }
 
-        public int Size_items1() 
+        public int Count()  // размер очереди
         {
-            return this.storage1.size() + this.storage2.size();
-            return items1.Length;
+            if (count1 != 0)
+                return count1;
+            else if (count2 != 0)
+                return count2;
+            else 
+                return 0;
+        }
+        public int Count1  // размер стека1
+        {
+            get { return count1; }
         }
 
-        public int Size_items2() 
+        public int Count2  // размер стека2
         {
-            return items2.Length;
+            get { return count2; }
         }
 
         public T Pop()
         {
             T item;
-            // если стек пуст, выбрасываем null
-            if (IsEmpty)
-                return default(T);
-            if (items.Count() == 1)
+
+            if (count2 == 0)  
             {
-                item = items[--count];
-                Array.Resize(ref items, 0);
+                if (count1 != 0)
+                {
+                    for (int i = 0; i < items1.Length; i++)
+                    {
+                        Push2(items1[--count1]); // если стек пуст перекладываем/переворачиваем
+                        items1[count1] = default(T);// сбрасываем ссылку
+                    }
+                }
+                else 
+                    return default(T);
+            }
+
+            else if (count2 == 1)
+            {
+                item = items2[--count2];
+                Array.Resize(ref items2, 0);
 
                 return item;
-                //items[count] = default(T);
             }
-            item = items[--count];
-            items[count] = default(T);// сбрасываем ссылку
-            Array.Resize(ref items, count);
+            item = items2[count2 - 1];
+            items2[--count2] = default(T);// сбрасываем ссылку
+            Array.Resize(ref items2, count2);
             return item;
         }
 
-        public T Dequeue()
-        {
-            if (Size_items2() == 0)
-            {
-                for (int i = Size_items1(); i > 0; i--)
-                    Push(Pop());
-            }
-
-            return Pop();
-        }
-
-
         public void Push(T val)
         {
-            this.storage1.push(item);
-            // если стек заполнен, увеличиваем
-            if (count == items1.Length)
+            if (count1 == items1.Length) // переполнен, увеличиваем
             {
                 Array.Resize(ref items1, items1.Length + 1);
             }
-            items1[count] = val;
-            count++;
+
+            items1[count1] = val;
+            count1++;
         }
 
-        public T Peek_items1()
+        public void Push2(T val)
         {
-            if (IsEmpty)
-                return default(T); 
-            return items1[count - 1];
+            if (count2 == items2.Length) // переполнен, увеличиваем
+            {
+                Array.Resize(ref items2, items2.Length + 1);
+            }
+            items2[count2] = val;
+            count2++;
         }
-        public T Peek_items2()
+
+        public T Peek()
         {
-            if (IsEmpty)
+            if (count1 != 0)
+                return items1[0];
+            else if (count2 != 0)
+                return items2[count2 - 1];
+            else
                 return default(T);
-            return items2[count - 1];
         }
     }
     class CMain
@@ -105,4 +116,3 @@ namespace AlgorithmsDataStructures
         public static void Main() { }
     }
 }
-
