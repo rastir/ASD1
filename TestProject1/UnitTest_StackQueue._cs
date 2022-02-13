@@ -6,7 +6,7 @@ using AlgorithmsDataStructures;
 namespace TestProject
 {
     ///<summary> 
-    ///Тесты для задания "Стэк"
+    ///Тесты для занятия "Очередь" задания "реализовать очередь при помощи двух стэков"
     /// </summary>
     [TestClass]
     public class AlgorithmsDataStructures
