@@ -85,6 +85,7 @@ namespace AlgorithmsDataStructures
         /// <summary>
         ///2. Как можно понизить (выровнять) сложность addHead/removeHead и addTail/removeTail, с помощью какого ранее изученного типа данных?
         /// </summary>
+		/// Использовать очередь.
         /// 
 
         /// <summary>
