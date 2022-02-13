@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -81,5 +81,10 @@ namespace AlgorithmsDataStructures
         {
             return _size;
         }
+    }
+
+    class CMain
+    {
+        public static void Main() { }
     }
 }

@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "H8Ff8ZCR9Ka/d04WVJYnJMBPIftSGVChu7WmjmuFmZp3MBH+NDzVSg7rxDxVMrOZZHMhFMyyvW5H3eLnt3P/bg==",
+  "dgSpecHash": "XxIkNVqEkYr8vx6gPbh8SCPMVxozLykqZUV2MOHuAQSst+b84G12SxpMb7gPdbGZ4rvstOqFqIcDTUDzgLEHlA==",
   "success": true,
   "projectFilePath": "C:\\github\\asd1\\ASD1\\ASD1.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\rasti\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\rasti\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\rasti\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
+    "C:\\Users\\rasti\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512"
+  ],
   "logs": []
 }

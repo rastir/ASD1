@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Collections;
 
 namespace AlgorithmsDataStructures
 {
@@ -175,26 +175,22 @@ namespace AlgorithmsDataStructures
     //}
     public class Deque<T>
     {
-        T[] _items = new T[0];
+        T[] _items;
 
-        // Количество элементов в очереди.
-        int _size = 0;
+        public int _size;
+        public int _head;
+        public int _tail;
 
-        // Индекс первого (самого старого) элемента.
-        int _head = 0;
-
-        // Индекс последнего (самого нового) элемента.
-        int _tail = -1;
         public Deque()
         {
-            //LinkedList<T> _head = new LinkedList<T>(); // головной/первый элемент
-            //LinkedList<T> _tail = new LinkedList<T>(); ; // последний/хвостовой элемент
-            //int count;  // количество элементов в списке
-            ////Data = data;
-            //Deque<T> _items = new Deque<T>();
+            //int _size = 0; // Количество элементов в очереди.
+            //int _head = 0; // Индекс первого (самого старого) элемента.
+            //int _tail = -1; // Индекс последнего (самого нового) элемента.
+
+            //T[] _items = new T[_size];
         }
 
-        private void allocateNewArray(int startingIndex)
+        public void ResizeArray (int startIndex)
         {
             int newLength = (_size == 0) ? 4 : _size * 2;
 
@@ -202,7 +198,7 @@ namespace AlgorithmsDataStructures
 
             if (_size > 0)
             {
-                int targetIndex = startingIndex;
+                int targetIndex = startIndex;
 
                 // Копируем содержимое...
                 // Если массив не закольцован, просто копируем элементы.
@@ -237,7 +233,7 @@ namespace AlgorithmsDataStructures
                 }
 
 
-                _head = startingIndex;
+                _head = startIndex;
                 _tail = targetIndex - 1;
             }
             else
@@ -263,7 +259,7 @@ namespace AlgorithmsDataStructures
             // Проверим, необходимо ли увеличение массива:
             if (_items.Length == _size)
             {
-                allocateNewArray(1);
+                ResizeArray(1);
             }
 
             // Так как массив не заполнен и _head больше 0,

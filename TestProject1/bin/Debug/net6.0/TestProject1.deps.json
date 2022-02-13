@@ -1078,6 +1078,9 @@
         }
       },
       "ASD1/1.0.0": {
+        "dependencies": {
+          "System.Collections": "4.3.0"
+        },
         "runtime": {
           "ASD1.dll": {}
         }

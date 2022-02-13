@@ -1664,6 +1664,9 @@
       "ASD1/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "System.Collections": "4.3.0"
+        },
         "compile": {
           "bin/placeholder/ASD1.dll": {}
         },

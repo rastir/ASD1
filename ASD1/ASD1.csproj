@@ -19,6 +19,7 @@
 	<CSFile Remove="Stack.cs" />
 	<CSFile Remove="Queue.cs" />
 	<CSFile Remove="StackQueue.cs" />
+	<CSFile Remove="Dequeue.cs" />
 	
 	<Compile Remove="LinkedList.cs\**" />
 	<Compile Remove="projects_file_to_take\**" />	
@@ -31,12 +32,17 @@
 	<Compile Remove="Stack2.cs" />
 	<Compile Remove="Queue.cs" />
 	<Compile Remove="StackQueue.cs" />
+	<Compile Remove="Dequeue.cs" />
 	
 	<EmbeddedResource Remove="LinkedList.cs\**" />
 	<EmbeddedResource Remove="projects_file_to_take\**" />
 	
 	<None Remove="LinkedList.cs\**" />
 	<None Remove="projects_file_to_take\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
   <Target Name="Build">
