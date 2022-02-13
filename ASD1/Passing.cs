@@ -1,109 +1,227 @@
+using System;
+using System.Collections.Generic;
+
 namespace AlgorithmsDataStructures
 {
     /// <summary>
-    /// Очередь: задание №4 "реализовать очередь с помощью двух стеков"
+    /// Двусторонняя очередь (deque)
     /// </summary>
-    public class Stack<T> //обобщенный класс
+    /// 
+	T[] _items = new T[0];
+
+	int _size = 0; // Количество элементов в очереди. 
+	int _head = 0; // Индекс первого по поряфдку (самого старого) элемента.
+	int _tail = -1; // Индекс последнего (нового) элемента.
+	
+    public class Deque<T>
     {
-        public T[] items1; //элементы любого типа T
-        public T[] items2; //элементы любого типа T
-        public int count; // количество элементов очереди
-        private int count1; // количество элементов стэка1
-        private int count2; // количество элементов стэка2
-
-        public Stack() //конструктор без параметров 
+        public Deque()
         {
-            count = 0;
-            count1 = 0;
-            count2 = 0;
-            // инициализация внутреннего хранилища стека
-            items1 = new T[count1];
-            items2 = new T[count2]; 
-        }
-        public bool IsEmpty () // пуст ли стек
-        {
-            return (count1 == 0 && count2 ==0);
+			// инициализация внутреннего хранилища
         }
 
-        public int Count()  // размер очереди
+        public void AddFront(T item) // добавление в голову
         {
-            if (count1 != 0)
-                return count1;
-            else if (count2 != 0)
-                return count2;
-            else 
-                return 0;
-        }
-        public int Count1  // размер стека1
-        {
-            get { return count1; }
-        }
-
-        public int Count2  // размер стека2
-        {
-            get { return count2; }
-        }
-
-        public T Pop()
-        {
-            T item;
-
-            if (count2 == 0)  
+            //LinkedList<T> node = new LinkedList<T>(data);
+            //LinkedList<T> temp = head;
+            //node.Next = temp;
+            //head = node;
+            //if (count == 0)
+            //    tail = head;
+            //else
+            //    temp.Previous = node;
+            //count++;
+            // Проверим, необходимо ли увеличение массива:
+            if (_items.Length == _size)
             {
-                if (count1 != 0)
+                allocateNewArray(1);
+            }
+
+            // Так как массив не заполнен и _head больше 0,
+            // мы знаем, что есть место в начале массива.
+            if (_head > 0)
+            {
+                _head--;
+            }
+            else
+            {
+                // В противном случае мы должны закольцеваться.
+                _head = _items.Length - 1;
+            }
+
+            _items[_head] = item;
+
+
+            _size++;
+
+            if (_size == 1)
+            {
+                // Если мы добавили первый элемент в пустую
+                // очередь, он же будет и последним, поэтому
+                // нужно обновить и _tail.
+                _tail = _head;
+            }
+        }
+
+        public void AddTail(T item) // добавление в хвост
+        {
+            // Проверим, необходимо ли увеличение массива:
+            if (_items.Length == _size)
+            {
+                allocateNewArray(0);
+            }
+
+            // Теперь, когда у нас есть подходящий массив,
+            // если _tail в конце массива, нам надо перейти в начало.
+            if (_tail == _items.Length - 1)
+            {
+                _tail = 0;
+            }
+            else
+            {
+                _tail++;
+            }
+
+            _items[_tail] = item;
+            _size++;
+
+            if (_size == 1)
+            {
+                // Если мы добавили последний элемент в пустую
+                // очередь, он же будет и первым, поэтому
+                // нужно обновить и _head.
+                _head = _tail;
+            }
+        }
+
+        public T RemoveFront() // удаление из головы
+        {
+            if (_size == 0)
+            {
+                return default(T); 
+                //throw new InvalidOperationException("The deque is empty");
+            }
+
+            T value = _items[_head];
+
+            if (_head == _items.Length - 1)
+            {
+                // Если head установлен на последнем индексе,
+                // переходим к началу массива.
+                _head = 0;
+            }
+            else
+            {
+                // Переходим к следующему элементу.
+                _head++;
+            }
+
+            _size--;
+
+            return value;
+            //return default(T);
+        }
+
+        public T RemoveTail() // удаление из хвоста
+        {
+            if (_size == 0)
+            {
+                return default(T); 
+                //throw new InvalidOperationException("The deque is empty");
+            }
+
+            T value = _items[_tail];
+
+            if (_tail == 0)
+            {
+                // Если tail установлен на начало массива, переходим к концу.
+                _tail = _items.Length - 1;
+            }
+            else
+            {
+                // Переходим к предыдущему элементу.
+                _tail--;
+            }
+
+            _size--;
+
+            return value;
+            //return default(T);
+        }
+		
+		 private void allocateNewArray(int startingIndex)
+        {
+            int newLength = (_size == 0) ? 4 : _size * 2;
+
+            T[] newArray = new T[newLength];
+
+            if (_size > 0)
+            {
+                int targetIndex = startingIndex;
+
+                // Если tail меньше, чем head, переходим сначала.
+                if (_tail < _head)
                 {
-                    for (int i = 0; i < items1.Length; i++)
+                    // Копируем 
+                    for (int index = _head; index < _items.Length; index++)
                     {
-                        Push2(items1[--count1]); // если стек пуст перекладываем/переворачиваем
-                        items1[count1] = default(T);// сбрасываем ссылку
+                        newArray[targetIndex] = _items[index];
+                        targetIndex++;
+                    }
+
+                    // Копируем 
+                    for (int index = 0; index <= _tail; index++)
+                    {
+                        newArray[targetIndex] = _items[index];
+                        targetIndex++;
                     }
                 }
-                else 
-                    return default(T);
+                else
+                {
+                    // Копируем _items[head].._items[tail] в newArray[0]..newArray[N]
+                    for (int index = _head; index <= _tail; index++)
+                    {
+                        newArray[targetIndex] = _items[index];
+                        targetIndex++;
+                    }
+                }
+
+                _head = startingIndex;
+                _tail = targetIndex - 1;
             }
-
-            else if (count2 == 1)
-            {
-                item = items2[--count2];
-                Array.Resize(ref items2, 0);
-
-                return item;
-            }
-            item = items2[count2 - 1];
-            items2[--count2] = default(T);// сбрасываем ссылку
-            Array.Resize(ref items2, count2);
-            return item;
-        }
-
-        public void Push(T val)
-        {
-            if (count1 == items1.Length) // переполнен, увеличиваем
-            {
-                Array.Resize(ref items1, items1.Length + 1);
-            }
-
-            items1[count1] = val;
-            count1++;
-        }
-
-        public void Push2(T val)
-        {
-            if (count2 == items2.Length) // переполнен, увеличиваем
-            {
-                Array.Resize(ref items2, items2.Length + 1);
-            }
-            items2[count2] = val;
-            count2++;
-        }
-
-        public T Peek()
-        {
-            if (count1 != 0)
-                return items1[0];
-            else if (count2 != 0)
-                return items2[count2 - 1];
             else
-                return default(T);
+            {
+                // Массив пуст.
+                _head = 0;
+                _tail = -1;
+            }
+
+            _items = newArray;
+        }
+		
+        public T PeekFirst()
+        {
+            if (_size == 0)
+            {
+                return default(T); 
+            }
+
+            return _items[_head];
+        }
+		
+        public T PeekLast()
+        {
+            if (_size == 0)
+            {
+                return default(T); 
+            }
+
+            return _items[_tail];
+        }
+        public int Size() // размер очереди
+        {
+            return _size;
+            //return 0; 
         }
     }
 }

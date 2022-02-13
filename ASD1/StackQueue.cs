@@ -9,11 +9,11 @@ namespace AlgorithmsDataStructures
     /// </summary>
     public class Stack<T> //обобщенный класс
     {
-        public T[] items1; //элементы любого типа T
-        public T[] items2; //элементы любого типа T
         public int count; // количество элементов очереди
         private int count1; // количество элементов стэка1
         private int count2; // количество элементов стэка2
+        public List<object> _items1;
+        public List<object> _items2;
 
         //для инициализации делаем два конструктора
         public Stack() //конструктор без параметров 
@@ -21,10 +21,17 @@ namespace AlgorithmsDataStructures
             count = 0;
             count1 = 0;
             count2 = 0;
+            _items1 = new List<object>(); //для сложности O(1) используем коллекцию/ Сложность: O(1)
+            _items2 = new List<object>(); //для сложности O(1) используем коллекцию/ Сложность: O(1)
             // инициализация внутреннего хранилища стека
-            items1 = new T[count1];
-            items2 = new T[count2]; 
+            //items1 = new T[count1];
+            //items2 = new T[count2]; 
         }
+        //public int Size() // размер текущего стека
+        //{
+        //    return items.Length;
+        //}
+
         public bool IsEmpty () // пуст ли стек
         {
             return (count1 == 0 && count2 ==0);
@@ -53,13 +60,13 @@ namespace AlgorithmsDataStructures
         {
             T item;
 
-            if (count2 == 0)  
+            if (_items1.Count == 0)  
             {
                 if (count1 != 0)
                 {
-                    for (int i = 0; i < items1.Length; i++)
+                    for (int i = 0; i < _items1.Count; i++)
                     {
-                        Push2(items1[--count1]); // если стек пуст перекладываем/переворачиваем
+                        Push2(_items1[--count1]); // если стек пуст перекладываем/переворачиваем
                         items1[count1] = default(T);// сбрасываем ссылку
                     }
                 }
@@ -69,6 +76,10 @@ namespace AlgorithmsDataStructures
 
             else if (count2 == 1)
             {
+                //item = (T)_items1[0];
+                //_stack.Clear();
+                //count = default;
+                //return item;
                 item = items2[--count2];
                 Array.Resize(ref items2, 0);
 
