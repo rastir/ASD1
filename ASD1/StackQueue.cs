@@ -85,8 +85,4 @@ namespace AlgorithmsDataStructures
                 return 0;
         }
     }
-    class CMain
-    {
-        public static void Main() { }
-    }
 }
