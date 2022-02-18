@@ -20,6 +20,7 @@
 	<CSFile Remove="Queue.cs" />
 	<CSFile Remove="StackQueue.cs" />
 	<CSFile Remove="Dequeue.cs" />
+	<CSFile Remove="Dequeue2.cs" />
 
 	
 	<Compile Remove="LinkedList.cs\**" />
@@ -34,7 +35,7 @@
 	<Compile Remove="Queue.cs" />
 	<Compile Remove="StackQueue.cs" />
 	<Compile Remove="Dequeue.cs" />
-
+	<Compile Remove="Dequeue2.cs" />
 	
 	<EmbeddedResource Remove="LinkedList.cs\**" />
 	<EmbeddedResource Remove="projects_file_to_take\**" />
